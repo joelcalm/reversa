@@ -1,0 +1,2029 @@
+[
+  {
+    "fecha_actualizacion": "20251217T193413Z",
+    "identificador": "BOE-A-1992-26318",
+    "ambito": {
+      "codigo": "1",
+      "texto": "Estatal"
+    },
+    "departamento": {
+      "codigo": "7723",
+      "texto": "Jefatura del Estado"
+    },
+    "rango": {
+      "codigo": "1300",
+      "texto": "Ley"
+    },
+    "fecha_disposicion": "19921126",
+    "numero_oficial": "30/1992",
+    "titulo": "Ley 30/1992, de 26 de noviembre, de Régimen Jurídico de las Administraciones Públicas y del Procedimiento Administrativo Común.",
+    "diario": "Boletín Oficial del Estado",
+    "fecha_publicacion": "19921127",
+    "diario_numero": "285",
+    "fecha_vigencia": "19930227",
+    "estatus_derogacion": "S",
+    "fecha_derogacion": "20210402",
+    "estatus_anulacion": "N",
+    "vigencia_agotada": "S",
+    "estado_consolidacion": {
+      "codigo": "3",
+      "texto": "Finalizado"
+    },
+    "url_eli": "https://www.boe.es/eli/es/l/1992/11/26/30",
+    "url_html_consolidada": "https://www.boe.es/buscar/act.php?id=BOE-A-1992-26318"
+  },
+  {
+    "fecha_actualizacion": "20260601T111024Z",
+    "identificador": "BOE-A-2015-10565",
+    "ambito": {
+      "codigo": "1",
+      "texto": "Estatal"
+    },
+    "departamento": {
+      "codigo": "7723",
+      "texto": "Jefatura del Estado"
+    },
+    "rango": {
+      "codigo": "1300",
+      "texto": "Ley"
+    },
+    "fecha_disposicion": "20151001",
+    "numero_oficial": "39/2015",
+    "titulo": "Ley 39/2015, de 1 de octubre, del Procedimiento Administrativo Común de las Administraciones Públicas.",
+    "diario": "Boletín Oficial del Estado",
+    "fecha_publicacion": "20151002",
+    "diario_numero": "236",
+    "fecha_vigencia": "20161002",
+    "estatus_derogacion": "N",
+    "estatus_anulacion": "N",
+    "vigencia_agotada": "N",
+    "estado_consolidacion": {
+      "codigo": "3",
+      "texto": "Finalizado"
+    },
+    "url_eli": "https://www.boe.es/eli/es/l/2015/10/01/39",
+    "url_html_consolidada": "https://www.boe.es/buscar/act.php?id=BOE-A-2015-10565"
+  },
+  {
+    "fecha_actualizacion": "20260619T090903Z",
+    "identificador": "BOE-A-2015-10566",
+    "ambito": {
+      "codigo": "1",
+      "texto": "Estatal"
+    },
+    "departamento": {
+      "codigo": "7723",
+      "texto": "Jefatura del Estado"
+    },
+    "rango": {
+      "codigo": "1300",
+      "texto": "Ley"
+    },
+    "fecha_disposicion": "20151001",
+    "numero_oficial": "40/2015",
+    "titulo": "Ley 40/2015, de 1 de octubre, de Régimen Jurídico del Sector Público.",
+    "diario": "Boletín Oficial del Estado",
+    "fecha_publicacion": "20151002",
+    "diario_numero": "236",
+    "fecha_vigencia": "20161002",
+    "estatus_derogacion": "N",
+    "estatus_anulacion": "N",
+    "vigencia_agotada": "N",
+    "estado_consolidacion": {
+      "codigo": "3",
+      "texto": "Finalizado"
+    },
+    "url_eli": "https://www.boe.es/eli/es/l/2015/10/01/40",
+    "url_html_consolidada": "https://www.boe.es/buscar/act.php?id=BOE-A-2015-10566"
+  },
+  {
+    "fecha_actualizacion": "20260619T221002Z",
+    "identificador": "BOE-A-2007-15158",
+    "ambito": {
+      "codigo": "2",
+      "texto": "Autonómico"
+    },
+    "departamento": {
+      "codigo": "8010",
+      "texto": "Comunidad Autónoma de Andalucía"
+    },
+    "rango": {
+      "codigo": "1300",
+      "texto": "Ley"
+    },
+    "fecha_disposicion": "20070709",
+    "numero_oficial": "7/2007",
+    "titulo": "Ley 7/2007, de 9 de julio de Gestión Integrada de la Calidad Ambiental",
+    "diario": "Boletín Oficial del Estado",
+    "fecha_publicacion": "20070809",
+    "diario_numero": "190",
+    "fecha_vigencia": "20080120",
+    "estatus_derogacion": "S",
+    "fecha_derogacion": "20260620",
+    "estatus_anulacion": "N",
+    "vigencia_agotada": "S",
+    "estado_consolidacion": {
+      "codigo": "3",
+      "texto": "Finalizado"
+    },
+    "url_eli": "https://www.boe.es/eli/es-an/l/2007/07/09/7",
+    "url_html_consolidada": "https://www.boe.es/buscar/act.php?id=BOE-A-2007-15158"
+  },
+  {
+    "fecha_actualizacion": "20260619T103202Z",
+    "identificador": "BOE-A-2026-13298",
+    "ambito": {
+      "codigo": "2",
+      "texto": "Autonómico"
+    },
+    "departamento": {
+      "codigo": "8150",
+      "texto": "Comunidad Autónoma del Principado de Asturias"
+    },
+    "rango": {
+      "codigo": "1300",
+      "texto": "Ley"
+    },
+    "fecha_disposicion": "20260528",
+    "numero_oficial": "4/2026",
+    "titulo": "Ley del Principado de Asturias 4/2026, de 28 de mayo, de Cooperativas.",
+    "diario": "Boletín Oficial del Estado",
+    "fecha_publicacion": "20260619",
+    "diario_numero": "149",
+    "fecha_vigencia": "20260810",
+    "estatus_derogacion": "N",
+    "estatus_anulacion": "N",
+    "vigencia_agotada": "N",
+    "estado_consolidacion": {
+      "codigo": "3",
+      "texto": "Finalizado"
+    },
+    "url_html_consolidada": "https://www.boe.es/buscar/act.php?id=BOE-A-2026-13298"
+  },
+  {
+    "fecha_actualizacion": "20260619T085448Z",
+    "identificador": "BOE-A-2023-16889",
+    "ambito": {
+      "codigo": "1",
+      "texto": "Estatal"
+    },
+    "departamento": {
+      "codigo": "9563",
+      "texto": "Ministerio de Educación y Formación Profesional"
+    },
+    "rango": {
+      "codigo": "1340",
+      "texto": "Real Decreto"
+    },
+    "fecha_disposicion": "20230718",
+    "numero_oficial": "659/2023",
+    "titulo": "Real Decreto 659/2023, de 18 de julio, por el que se desarrolla la ordenación del Sistema de Formación Profesional.",
+    "diario": "Boletín Oficial del Estado",
+    "fecha_publicacion": "20230722",
+    "diario_numero": "174",
+    "fecha_vigencia": "20230723",
+    "estatus_derogacion": "N",
+    "estatus_anulacion": "N",
+    "vigencia_agotada": "N",
+    "estado_consolidacion": {
+      "codigo": "3",
+      "texto": "Finalizado"
+    },
+    "url_eli": "https://www.boe.es/eli/es/rd/2023/07/18/659",
+    "url_html_consolidada": "https://www.boe.es/buscar/act.php?id=BOE-A-2023-16889"
+  },
+  {
+    "fecha_actualizacion": "20260619T085138Z",
+    "identificador": "BOE-A-2022-5139",
+    "ambito": {
+      "codigo": "1",
+      "texto": "Estatal"
+    },
+    "departamento": {
+      "codigo": "7723",
+      "texto": "Jefatura del Estado"
+    },
+    "rango": {
+      "codigo": "1290",
+      "texto": "Ley Orgánica"
+    },
+    "fecha_disposicion": "20220331",
+    "numero_oficial": "3/2022",
+    "titulo": "Ley Orgánica 3/2022, de 31 de marzo, de ordenación e integración de la Formación Profesional.",
+    "diario": "Boletín Oficial del Estado",
+    "fecha_publicacion": "20220401",
+    "diario_numero": "78",
+    "fecha_vigencia": "20220421",
+    "estatus_derogacion": "N",
+    "estatus_anulacion": "N",
+    "vigencia_agotada": "N",
+    "estado_consolidacion": {
+      "codigo": "3",
+      "texto": "Finalizado"
+    },
+    "url_eli": "https://www.boe.es/eli/es/lo/2022/03/31/3",
+    "url_html_consolidada": "https://www.boe.es/buscar/act.php?id=BOE-A-2022-5139"
+  },
+  {
+    "fecha_actualizacion": "20260619T074247Z",
+    "identificador": "BOE-A-2010-14628",
+    "ambito": {
+      "codigo": "2",
+      "texto": "Autonómico"
+    },
+    "departamento": {
+      "codigo": "8150",
+      "texto": "Comunidad Autónoma del Principado de Asturias"
+    },
+    "rango": {
+      "codigo": "1300",
+      "texto": "Ley"
+    },
+    "fecha_disposicion": "20100629",
+    "numero_oficial": "4/2010",
+    "titulo": "Ley 4/2010, de 29 de junio, de Cooperativas.",
+    "diario": "Boletín Oficial del Estado",
+    "fecha_publicacion": "20100924",
+    "diario_numero": "232",
+    "fecha_vigencia": "20100801",
+    "estatus_derogacion": "N",
+    "fecha_derogacion": "20260810",
+    "estatus_anulacion": "N",
+    "vigencia_agotada": "N",
+    "estado_consolidacion": {
+      "codigo": "3",
+      "texto": "Finalizado"
+    },
+    "url_eli": "https://www.boe.es/eli/es-as/l/2010/06/29/4",
+    "url_html_consolidada": "https://www.boe.es/buscar/act.php?id=BOE-A-2010-14628"
+  },
+  {
+    "fecha_actualizacion": "20260619T072000Z",
+    "identificador": "BOE-A-2026-6544",
+    "ambito": {
+      "codigo": "1",
+      "texto": "Estatal"
+    },
+    "departamento": {
+      "codigo": "7723",
+      "texto": "Jefatura del Estado"
+    },
+    "rango": {
+      "codigo": "1320",
+      "texto": "Real Decreto-ley"
+    },
+    "fecha_disposicion": "20260320",
+    "numero_oficial": "7/2026",
+    "titulo": "Real Decreto-ley 7/2026, de 20 de marzo, por el que se aprueba el Plan Integral de Respuesta a la Crisis en Oriente Medio.",
+    "diario": "Boletín Oficial del Estado",
+    "fecha_publicacion": "20260321",
+    "diario_numero": "71",
+    "fecha_vigencia": "20260322",
+    "estatus_derogacion": "N",
+    "estatus_anulacion": "N",
+    "vigencia_agotada": "N",
+    "estado_consolidacion": {
+      "codigo": "3",
+      "texto": "Finalizado"
+    },
+    "url_eli": "https://www.boe.es/eli/es/rdl/2026/03/20/7",
+    "url_html_consolidada": "https://www.boe.es/buscar/act.php?id=BOE-A-2026-6544"
+  },
+  {
+    "fecha_actualizacion": "20260619T070232Z",
+    "identificador": "BOE-A-2017-12902",
+    "ambito": {
+      "codigo": "1",
+      "texto": "Estatal"
+    },
+    "departamento": {
+      "codigo": "7723",
+      "texto": "Jefatura del Estado"
+    },
+    "rango": {
+      "codigo": "1300",
+      "texto": "Ley"
+    },
+    "fecha_disposicion": "20171108",
+    "numero_oficial": "9/2017",
+    "titulo": "Ley 9/2017, de 8 de noviembre, de Contratos del Sector Público, por la que se transponen al ordenamiento jurídico español las Directivas del Parlamento Europeo y del Consejo 2014/23/UE y 2014/24/UE, de 26 de febrero de 2014.",
+    "diario": "Boletín Oficial del Estado",
+    "fecha_publicacion": "20171109",
+    "diario_numero": "272",
+    "fecha_vigencia": "20180309",
+    "estatus_derogacion": "N",
+    "estatus_anulacion": "N",
+    "vigencia_agotada": "N",
+    "estado_consolidacion": {
+      "codigo": "3",
+      "texto": "Finalizado"
+    },
+    "url_eli": "https://www.boe.es/eli/es/l/2017/11/08/9",
+    "url_html_consolidada": "https://www.boe.es/buscar/act.php?id=BOE-A-2017-12902"
+  },
+  {
+    "fecha_actualizacion": "20260619T070052Z",
+    "identificador": "BOE-A-2008-3526",
+    "ambito": {
+      "codigo": "1",
+      "texto": "Estatal"
+    },
+    "departamento": {
+      "codigo": "7710",
+      "texto": "Ministerio de la Presidencia"
+    },
+    "rango": {
+      "codigo": "1340",
+      "texto": "Real Decreto"
+    },
+    "fecha_disposicion": "20080215",
+    "numero_oficial": "229/2008",
+    "titulo": "Real Decreto 229/2008, de 15 de febrero, por el que se regulan los Centros de Referencia Nacional en el ámbito de la formación profesional.",
+    "diario": "Boletín Oficial del Estado",
+    "fecha_publicacion": "20080225",
+    "diario_numero": "48",
+    "fecha_vigencia": "20080226",
+    "estatus_derogacion": "N",
+    "estatus_anulacion": "N",
+    "vigencia_agotada": "N",
+    "estado_consolidacion": {
+      "codigo": "3",
+      "texto": "Finalizado"
+    },
+    "url_eli": "https://www.boe.es/eli/es/rd/2008/02/15/229",
+    "url_html_consolidada": "https://www.boe.es/buscar/act.php?id=BOE-A-2008-3526"
+  },
+  {
+    "fecha_actualizacion": "20260619T062552Z",
+    "identificador": "BOE-A-1982-634",
+    "ambito": {
+      "codigo": "1",
+      "texto": "Estatal"
+    },
+    "departamento": {
+      "codigo": "7723",
+      "texto": "Jefatura del Estado"
+    },
+    "rango": {
+      "codigo": "1290",
+      "texto": "Ley Orgánica"
+    },
+    "fecha_disposicion": "19811230",
+    "numero_oficial": "7/1981",
+    "titulo": "Ley Orgánica 7/1981, de 30 de diciembre, de Estatuto de Autonomía para Asturias.",
+    "diario": "Boletín Oficial del Estado",
+    "fecha_publicacion": "19820111",
+    "diario_numero": "9",
+    "fecha_vigencia": "19820131",
+    "estatus_derogacion": "N",
+    "estatus_anulacion": "N",
+    "vigencia_agotada": "N",
+    "estado_consolidacion": {
+      "codigo": "3",
+      "texto": "Finalizado"
+    },
+    "url_eli": "https://www.boe.es/eli/es/lo/1981/12/30/7",
+    "url_html_consolidada": "https://www.boe.es/buscar/act.php?id=BOE-A-1982-634"
+  },
+  {
+    "fecha_actualizacion": "20260619T061845Z",
+    "identificador": "BOE-A-2023-7500",
+    "ambito": {
+      "codigo": "1",
+      "texto": "Estatal"
+    },
+    "departamento": {
+      "codigo": "7723",
+      "texto": "Jefatura del Estado"
+    },
+    "rango": {
+      "codigo": "1290",
+      "texto": "Ley Orgánica"
+    },
+    "fecha_disposicion": "20230322",
+    "numero_oficial": "2/2023",
+    "titulo": "Ley Orgánica 2/2023, de 22 de marzo, del Sistema Universitario.",
+    "diario": "Boletín Oficial del Estado",
+    "fecha_publicacion": "20230323",
+    "diario_numero": "70",
+    "fecha_vigencia": "20230412",
+    "estatus_derogacion": "N",
+    "estatus_anulacion": "N",
+    "vigencia_agotada": "N",
+    "estado_consolidacion": {
+      "codigo": "3",
+      "texto": "Finalizado"
+    },
+    "url_eli": "https://www.boe.es/eli/es/lo/2023/03/22/2",
+    "url_html_consolidada": "https://www.boe.es/buscar/act.php?id=BOE-A-2023-7500"
+  },
+  {
+    "fecha_actualizacion": "20260618T114557Z",
+    "identificador": "BOE-A-2014-6925",
+    "ambito": {
+      "codigo": "2",
+      "texto": "Autonómico"
+    },
+    "departamento": {
+      "codigo": "8121",
+      "texto": "Comunidad Autónoma de las Illes Balears"
+    },
+    "rango": {
+      "codigo": "1470",
+      "texto": "Decreto Legislativo"
+    },
+    "fecha_disposicion": "20140606",
+    "numero_oficial": "1/2014",
+    "titulo": "Decreto Legislativo 1/2014, de 6 de junio, por el que se aprueba el Texto Refundido de las disposiciones legales de la Comunidad Autónoma de las Illes Balears en materia de tributos cedidos por el Estado.",
+    "diario": "Boletín Oficial del Estado",
+    "fecha_publicacion": "20140702",
+    "diario_numero": "160",
+    "fecha_vigencia": "20140608",
+    "estatus_derogacion": "N",
+    "estatus_anulacion": "N",
+    "vigencia_agotada": "N",
+    "estado_consolidacion": {
+      "codigo": "4",
+      "texto": "Desactualizado"
+    },
+    "url_eli": "https://www.boe.es/eli/es-ib/dlg/2014/06/06/1",
+    "url_html_consolidada": "https://www.boe.es/buscar/act.php?id=BOE-A-2014-6925"
+  },
+  {
+    "fecha_actualizacion": "20260604T071229Z",
+    "identificador": "BOE-A-1985-12666",
+    "ambito": {
+      "codigo": "1",
+      "texto": "Estatal"
+    },
+    "departamento": {
+      "codigo": "7723",
+      "texto": "Jefatura del Estado"
+    },
+    "rango": {
+      "codigo": "1290",
+      "texto": "Ley Orgánica"
+    },
+    "fecha_disposicion": "19850701",
+    "numero_oficial": "6/1985",
+    "titulo": "Ley Orgánica 6/1985, de 1 de julio, del Poder Judicial.",
+    "diario": "Boletín Oficial del Estado",
+    "fecha_publicacion": "19850702",
+    "diario_numero": "157",
+    "fecha_vigencia": "19850703",
+    "estatus_derogacion": "N",
+    "estatus_anulacion": "N",
+    "vigencia_agotada": "N",
+    "estado_consolidacion": {
+      "codigo": "3",
+      "texto": "Finalizado"
+    },
+    "url_eli": "https://www.boe.es/eli/es/lo/1985/07/01/6",
+    "url_html_consolidada": "https://www.boe.es/buscar/act.php?id=BOE-A-1985-12666"
+  },
+  {
+    "fecha_actualizacion": "20251219T112014Z",
+    "identificador": "BOE-A-2007-12352",
+    "ambito": {
+      "codigo": "1",
+      "texto": "Estatal"
+    },
+    "departamento": {
+      "codigo": "7723",
+      "texto": "Jefatura del Estado"
+    },
+    "rango": {
+      "codigo": "1300",
+      "texto": "Ley"
+    },
+    "fecha_disposicion": "20070622",
+    "numero_oficial": "11/2007",
+    "titulo": "Ley 11/2007, de 22 de junio, de acceso electrónico de los ciudadanos a los Servicios Públicos.",
+    "diario": "Boletín Oficial del Estado",
+    "fecha_publicacion": "20070623",
+    "diario_numero": "150",
+    "fecha_vigencia": "20070624",
+    "estatus_derogacion": "S",
+    "fecha_derogacion": "20210402",
+    "estatus_anulacion": "N",
+    "vigencia_agotada": "S",
+    "estado_consolidacion": {
+      "codigo": "3",
+      "texto": "Finalizado"
+    },
+    "url_eli": "https://www.boe.es/eli/es/l/2007/06/22/11",
+    "url_html_consolidada": "https://www.boe.es/buscar/act.php?id=BOE-A-2007-12352"
+  },
+  {
+    "fecha_actualizacion": "20260305T102624Z",
+    "identificador": "BOE-A-1998-16718",
+    "ambito": {
+      "codigo": "1",
+      "texto": "Estatal"
+    },
+    "departamento": {
+      "codigo": "7723",
+      "texto": "Jefatura del Estado"
+    },
+    "rango": {
+      "codigo": "1300",
+      "texto": "Ley"
+    },
+    "fecha_disposicion": "19980713",
+    "numero_oficial": "29/1998",
+    "titulo": "Ley 29/1998, de 13 de julio, reguladora de la Jurisdicción Contencioso-administrativa.",
+    "diario": "Boletín Oficial del Estado",
+    "fecha_publicacion": "19980714",
+    "diario_numero": "167",
+    "fecha_vigencia": "19981214",
+    "estatus_derogacion": "N",
+    "estatus_anulacion": "N",
+    "vigencia_agotada": "N",
+    "estado_consolidacion": {
+      "codigo": "3",
+      "texto": "Finalizado"
+    },
+    "url_eli": "https://www.boe.es/eli/es/l/1998/07/13/29",
+    "url_html_consolidada": "https://www.boe.es/buscar/act.php?id=BOE-A-1998-16718"
+  },
+  {
+    "fecha_actualizacion": "20260319T083346Z",
+    "identificador": "BOE-A-1997-7878",
+    "ambito": {
+      "codigo": "1",
+      "texto": "Estatal"
+    },
+    "departamento": {
+      "codigo": "7723",
+      "texto": "Jefatura del Estado"
+    },
+    "rango": {
+      "codigo": "1300",
+      "texto": "Ley"
+    },
+    "fecha_disposicion": "19970414",
+    "numero_oficial": "6/1997",
+    "titulo": "Ley 6/1997, de 14 de abril, de Organización y Funcionamiento de la Administración General del Estado.",
+    "diario": "Boletín Oficial del Estado",
+    "fecha_publicacion": "19970415",
+    "diario_numero": "90",
+    "fecha_vigencia": "19970505",
+    "estatus_derogacion": "S",
+    "fecha_derogacion": "20161002",
+    "estatus_anulacion": "N",
+    "vigencia_agotada": "S",
+    "estado_consolidacion": {
+      "codigo": "3",
+      "texto": "Finalizado"
+    },
+    "url_eli": "https://www.boe.es/eli/es/l/1997/04/14/6",
+    "url_html_consolidada": "https://www.boe.es/buscar/act.php?id=BOE-A-1997-7878"
+  },
+  {
+    "fecha_actualizacion": "20260605T075648Z",
+    "identificador": "BOE-A-2014-9467",
+    "ambito": {
+      "codigo": "1",
+      "texto": "Estatal"
+    },
+    "departamento": {
+      "codigo": "7723",
+      "texto": "Jefatura del Estado"
+    },
+    "rango": {
+      "codigo": "1300",
+      "texto": "Ley"
+    },
+    "fecha_disposicion": "20140916",
+    "numero_oficial": "15/2014",
+    "titulo": "Ley 15/2014, de 16 de septiembre, de racionalización del Sector Público y otras medidas de reforma administrativa.",
+    "diario": "Boletín Oficial del Estado",
+    "fecha_publicacion": "20140917",
+    "diario_numero": "226",
+    "fecha_vigencia": "20140918",
+    "estatus_derogacion": "N",
+    "estatus_anulacion": "N",
+    "vigencia_agotada": "N",
+    "estado_consolidacion": {
+      "codigo": "3",
+      "texto": "Finalizado"
+    },
+    "url_eli": "https://www.boe.es/eli/es/l/2014/09/16/15",
+    "url_html_consolidada": "https://www.boe.es/buscar/act.php?id=BOE-A-2014-9467"
+  },
+  {
+    "fecha_actualizacion": "20260102T105216Z",
+    "identificador": "BOE-A-2013-12887",
+    "ambito": {
+      "codigo": "1",
+      "texto": "Estatal"
+    },
+    "departamento": {
+      "codigo": "7723",
+      "texto": "Jefatura del Estado"
+    },
+    "rango": {
+      "codigo": "1300",
+      "texto": "Ley"
+    },
+    "fecha_disposicion": "20131209",
+    "numero_oficial": "19/2013",
+    "titulo": "Ley 19/2013, de 9 de diciembre, de transparencia, acceso a la información pública y buen gobierno.",
+    "diario": "Boletín Oficial del Estado",
+    "fecha_publicacion": "20131210",
+    "diario_numero": "295",
+    "fecha_vigencia": "20141210",
+    "estatus_derogacion": "N",
+    "estatus_anulacion": "N",
+    "vigencia_agotada": "N",
+    "estado_consolidacion": {
+      "codigo": "3",
+      "texto": "Finalizado"
+    },
+    "url_eli": "https://www.boe.es/eli/es/l/2013/12/09/19",
+    "url_html_consolidada": "https://www.boe.es/buscar/act.php?id=BOE-A-2013-12887"
+  },
+  {
+    "fecha_actualizacion": "20251219T130635Z",
+    "identificador": "BOE-A-2011-11641",
+    "ambito": {
+      "codigo": "1",
+      "texto": "Estatal"
+    },
+    "departamento": {
+      "codigo": "7723",
+      "texto": "Jefatura del Estado"
+    },
+    "rango": {
+      "codigo": "1320",
+      "texto": "Real Decreto-ley"
+    },
+    "fecha_disposicion": "20110701",
+    "numero_oficial": "8/2011",
+    "titulo": "Real Decreto-ley 8/2011, de 1 de julio, de medidas de apoyo a los deudores hipotecarios, de control del gasto público y cancelación de deudas con empresas y autónomos contraídas por las entidades locales, de fomento de la actividad empresarial e impulso de la rehabilitación y de simplificación administrativa.",
+    "diario": "Boletín Oficial del Estado",
+    "fecha_publicacion": "20110707",
+    "diario_numero": "161",
+    "fecha_vigencia": "20110707",
+    "estatus_derogacion": "N",
+    "estatus_anulacion": "N",
+    "vigencia_agotada": "N",
+    "estado_consolidacion": {
+      "codigo": "3",
+      "texto": "Finalizado"
+    },
+    "url_eli": "https://www.boe.es/eli/es/rdl/2011/07/01/8",
+    "url_html_consolidada": "https://www.boe.es/buscar/act.php?id=BOE-A-2011-11641"
+  },
+  {
+    "fecha_actualizacion": "20260514T063041Z",
+    "identificador": "BOE-A-2011-4117",
+    "ambito": {
+      "codigo": "1",
+      "texto": "Estatal"
+    },
+    "departamento": {
+      "codigo": "7723",
+      "texto": "Jefatura del Estado"
+    },
+    "rango": {
+      "codigo": "1300",
+      "texto": "Ley"
+    },
+    "fecha_disposicion": "20110304",
+    "numero_oficial": "2/2011",
+    "titulo": "Ley 2/2011, de 4 de marzo, de Economía Sostenible.",
+    "diario": "Boletín Oficial del Estado",
+    "fecha_publicacion": "20110305",
+    "diario_numero": "55",
+    "fecha_vigencia": "20110306",
+    "estatus_derogacion": "N",
+    "estatus_anulacion": "N",
+    "vigencia_agotada": "N",
+    "estado_consolidacion": {
+      "codigo": "3",
+      "texto": "Finalizado"
+    },
+    "url_eli": "https://www.boe.es/eli/es/l/2011/03/04/2",
+    "url_html_consolidada": "https://www.boe.es/buscar/act.php?id=BOE-A-2011-4117"
+  },
+  {
+    "fecha_actualizacion": "20251219T120510Z",
+    "identificador": "BOE-A-2009-20725",
+    "ambito": {
+      "codigo": "1",
+      "texto": "Estatal"
+    },
+    "departamento": {
+      "codigo": "7723",
+      "texto": "Jefatura del Estado"
+    },
+    "rango": {
+      "codigo": "1300",
+      "texto": "Ley"
+    },
+    "fecha_disposicion": "20091222",
+    "numero_oficial": "25/2009",
+    "titulo": "Ley 25/2009, de 22 de diciembre, de modificación de diversas leyes para su adaptación a la Ley sobre el libre acceso a las actividades de servicios y su ejercicio.",
+    "diario": "Boletín Oficial del Estado",
+    "fecha_publicacion": "20091223",
+    "diario_numero": "308",
+    "fecha_vigencia": "20091227",
+    "estatus_derogacion": "N",
+    "estatus_anulacion": "N",
+    "vigencia_agotada": "N",
+    "estado_consolidacion": {
+      "codigo": "3",
+      "texto": "Finalizado"
+    },
+    "url_eli": "https://www.boe.es/eli/es/l/2009/12/22/25",
+    "url_html_consolidada": "https://www.boe.es/buscar/act.php?id=BOE-A-2009-20725"
+  },
+  {
+    "fecha_actualizacion": "20251219T120450Z",
+    "identificador": "BOE-A-2009-17493",
+    "ambito": {
+      "codigo": "1",
+      "texto": "Estatal"
+    },
+    "departamento": {
+      "codigo": "7723",
+      "texto": "Jefatura del Estado"
+    },
+    "rango": {
+      "codigo": "1300",
+      "texto": "Ley"
+    },
+    "fecha_disposicion": "20091103",
+    "numero_oficial": "13/2009",
+    "titulo": "Ley 13/2009, de 3 de noviembre, de reforma de la legislación procesal para la implantación de la nueva Oficina judicial.",
+    "diario": "Boletín Oficial del Estado",
+    "fecha_publicacion": "20091104",
+    "diario_numero": "266",
+    "fecha_vigencia": "20100504",
+    "estatus_derogacion": "N",
+    "estatus_anulacion": "N",
+    "vigencia_agotada": "N",
+    "estado_consolidacion": {
+      "codigo": "3",
+      "texto": "Finalizado"
+    },
+    "url_eli": "https://www.boe.es/eli/es/l/2009/11/03/13",
+    "url_html_consolidada": "https://www.boe.es/buscar/act.php?id=BOE-A-2009-17493"
+  },
+  {
+    "fecha_actualizacion": "20251218T200440Z",
+    "identificador": "BOE-A-2003-23936",
+    "ambito": {
+      "codigo": "1",
+      "texto": "Estatal"
+    },
+    "departamento": {
+      "codigo": "7723",
+      "texto": "Jefatura del Estado"
+    },
+    "rango": {
+      "codigo": "1300",
+      "texto": "Ley"
+    },
+    "fecha_disposicion": "20031230",
+    "numero_oficial": "62/2003",
+    "titulo": "Ley 62/2003, de 30 de diciembre, de medidas fiscales, administrativas y del orden social.",
+    "diario": "Boletín Oficial del Estado",
+    "fecha_publicacion": "20031231",
+    "diario_numero": "313",
+    "fecha_vigencia": "20040101",
+    "estatus_derogacion": "N",
+    "estatus_anulacion": "N",
+    "vigencia_agotada": "N",
+    "estado_consolidacion": {
+      "codigo": "3",
+      "texto": "Finalizado"
+    },
+    "url_eli": "https://www.boe.es/eli/es/l/2003/12/30/62",
+    "url_html_consolidada": "https://www.boe.es/buscar/act.php?id=BOE-A-2003-23936"
+  },
+  {
+    "fecha_actualizacion": "20251218T200435Z",
+    "identificador": "BOE-A-2003-23103",
+    "ambito": {
+      "codigo": "1",
+      "texto": "Estatal"
+    },
+    "departamento": {
+      "codigo": "7723",
+      "texto": "Jefatura del Estado"
+    },
+    "rango": {
+      "codigo": "1300",
+      "texto": "Ley"
+    },
+    "fecha_disposicion": "20031216",
+    "numero_oficial": "57/2003",
+    "titulo": "Ley 57/2003, de 16 de diciembre, de medidas para la modernización del gobierno local.",
+    "diario": "Boletín Oficial del Estado",
+    "fecha_publicacion": "20031217",
+    "diario_numero": "301",
+    "fecha_vigencia": "20040101",
+    "estatus_derogacion": "N",
+    "estatus_anulacion": "N",
+    "vigencia_agotada": "N",
+    "estado_consolidacion": {
+      "codigo": "3",
+      "texto": "Finalizado"
+    },
+    "url_eli": "https://www.boe.es/eli/es/l/2003/12/16/57",
+    "url_html_consolidada": "https://www.boe.es/buscar/act.php?id=BOE-A-2003-23103"
+  },
+  {
+    "fecha_actualizacion": "20251218T190610Z",
+    "identificador": "BOE-A-2001-24965",
+    "ambito": {
+      "codigo": "1",
+      "texto": "Estatal"
+    },
+    "departamento": {
+      "codigo": "7723",
+      "texto": "Jefatura del Estado"
+    },
+    "rango": {
+      "codigo": "1300",
+      "texto": "Ley"
+    },
+    "fecha_disposicion": "20011227",
+    "numero_oficial": "24/2001",
+    "titulo": "Ley 24/2001, de 27 de diciembre, de Medidas Fiscales, Administrativas y del Orden Social.",
+    "diario": "Boletín Oficial del Estado",
+    "fecha_publicacion": "20011231",
+    "diario_numero": "313",
+    "fecha_vigencia": "20020101",
+    "estatus_derogacion": "N",
+    "estatus_anulacion": "N",
+    "vigencia_agotada": "N",
+    "estado_consolidacion": {
+      "codigo": "3",
+      "texto": "Finalizado"
+    },
+    "url_eli": "https://www.boe.es/eli/es/l/2001/12/27/24",
+    "url_html_consolidada": "https://www.boe.es/buscar/act.php?id=BOE-A-2001-24965"
+  },
+  {
+    "fecha_actualizacion": "20251218T180309Z",
+    "identificador": "BOE-A-1999-847",
+    "ambito": {
+      "codigo": "1",
+      "texto": "Estatal"
+    },
+    "departamento": {
+      "codigo": "7723",
+      "texto": "Jefatura del Estado"
+    },
+    "rango": {
+      "codigo": "1300",
+      "texto": "Ley"
+    },
+    "fecha_disposicion": "19990113",
+    "numero_oficial": "4/1999",
+    "titulo": "Ley 4/1999, de 13 de enero, de modificación de la Ley 30/1992, de 26 de noviembre, de Régimen Jurídico de las Administraciones Públicas y del Procedimiento Administrativo Común.",
+    "diario": "Boletín Oficial del Estado",
+    "fecha_publicacion": "19990114",
+    "diario_numero": "12",
+    "fecha_vigencia": "19990414",
+    "estatus_derogacion": "N",
+    "estatus_anulacion": "N",
+    "vigencia_agotada": "N",
+    "estado_consolidacion": {
+      "codigo": "3",
+      "texto": "Finalizado"
+    },
+    "url_eli": "https://www.boe.es/eli/es/l/1999/01/13/4",
+    "url_html_consolidada": "https://www.boe.es/buscar/act.php?id=BOE-A-1999-847"
+  },
+  {
+    "fecha_actualizacion": "20260609T112534Z",
+    "identificador": "BOE-A-2013-13756",
+    "ambito": {
+      "codigo": "1",
+      "texto": "Estatal"
+    },
+    "departamento": {
+      "codigo": "7723",
+      "texto": "Jefatura del Estado"
+    },
+    "rango": {
+      "codigo": "1300",
+      "texto": "Ley"
+    },
+    "fecha_disposicion": "20131227",
+    "numero_oficial": "27/2013",
+    "titulo": "Ley 27/2013, de 27 de diciembre, de racionalización y sostenibilidad de la Administración Local.",
+    "diario": "Boletín Oficial del Estado",
+    "fecha_publicacion": "20131230",
+    "diario_numero": "312",
+    "fecha_vigencia": "20131231",
+    "estatus_derogacion": "N",
+    "estatus_anulacion": "N",
+    "vigencia_agotada": "N",
+    "estado_consolidacion": {
+      "codigo": "3",
+      "texto": "Finalizado"
+    },
+    "url_eli": "https://www.boe.es/eli/es/l/2013/12/27/27",
+    "url_html_consolidada": "https://www.boe.es/buscar/act.php?id=BOE-A-2013-13756"
+  },
+  {
+    "fecha_actualizacion": "20251219T120456Z",
+    "identificador": "BOE-A-2009-18732",
+    "ambito": {
+      "codigo": "1",
+      "texto": "Estatal"
+    },
+    "departamento": {
+      "codigo": "7723",
+      "texto": "Jefatura del Estado"
+    },
+    "rango": {
+      "codigo": "1300",
+      "texto": "Ley"
+    },
+    "fecha_disposicion": "20091123",
+    "numero_oficial": "18/2009",
+    "titulo": "Ley 18/2009, de 23 de noviembre, por la que se modifica el texto articulado de la Ley sobre Tráfico, Circulación de Vehículos a Motor y Seguridad Vial, aprobado por el Real Decreto Legislativo 339/1990, de 2 de marzo, en materia sancionadora.",
+    "diario": "Boletín Oficial del Estado",
+    "fecha_publicacion": "20091124",
+    "diario_numero": "283",
+    "fecha_vigencia": "20100524",
+    "estatus_derogacion": "N",
+    "estatus_anulacion": "N",
+    "vigencia_agotada": "N",
+    "estado_consolidacion": {
+      "codigo": "3",
+      "texto": "Finalizado"
+    },
+    "url_eli": "https://www.boe.es/eli/es/l/2009/11/23/18",
+    "url_html_consolidada": "https://www.boe.es/buscar/act.php?id=BOE-A-2009-18732"
+  },
+  {
+    "fecha_actualizacion": "20251218T180404Z",
+    "identificador": "BOE-A-1999-11499",
+    "ambito": {
+      "codigo": "1",
+      "texto": "Estatal"
+    },
+    "departamento": {
+      "codigo": "7210",
+      "texto": "Ministerio de Administraciones Públicas"
+    },
+    "rango": {
+      "codigo": "1340",
+      "texto": "Real Decreto"
+    },
+    "fecha_disposicion": "19990507",
+    "numero_oficial": "772/1999",
+    "titulo": "Real Decreto 772/1999, de 7 de mayo, por el que se regula la presentación de solicitudes, escritos y comunicaciones ante la Administración General del Estado, la expedición de copias de documentos y devolución de originales y el régimen de las oficinas de registro.",
+    "diario": "Boletín Oficial del Estado",
+    "fecha_publicacion": "19990522",
+    "diario_numero": "122",
+    "fecha_vigencia": "19990722",
+    "estatus_derogacion": "S",
+    "fecha_derogacion": "20161002",
+    "estatus_anulacion": "N",
+    "vigencia_agotada": "S",
+    "estado_consolidacion": {
+      "codigo": "3",
+      "texto": "Finalizado"
+    },
+    "url_eli": "https://www.boe.es/eli/es/rd/1999/05/07/772",
+    "url_html_consolidada": "https://www.boe.es/buscar/act.php?id=BOE-A-1999-11499"
+  },
+  {
+    "fecha_actualizacion": "20251219T123636Z",
+    "identificador": "BOE-A-2010-3034",
+    "ambito": {
+      "codigo": "1",
+      "texto": "Estatal"
+    },
+    "departamento": {
+      "codigo": "7710",
+      "texto": "Ministerio de la Presidencia"
+    },
+    "rango": {
+      "codigo": "1340",
+      "texto": "Real Decreto"
+    },
+    "fecha_disposicion": "20100212",
+    "numero_oficial": "137/2010",
+    "titulo": "Real Decreto 137/2010, de 12 de febrero, por el que se establecen criterios para la emisión de la comunicación a los interesados prevista en el artículo 42.4 de la Ley 30/1992, de 26 de noviembre, de Régimen Jurídico de las Administraciones Públicas y del Procedimiento Administrativo Común.",
+    "diario": "Boletín Oficial del Estado",
+    "fecha_publicacion": "20100225",
+    "diario_numero": "49",
+    "fecha_vigencia": "20100226",
+    "estatus_derogacion": "N",
+    "estatus_anulacion": "N",
+    "vigencia_agotada": "N",
+    "estado_consolidacion": {
+      "codigo": "3",
+      "texto": "Finalizado"
+    },
+    "url_eli": "https://www.boe.es/eli/es/rd/2010/02/12/137",
+    "url_html_consolidada": "https://www.boe.es/buscar/act.php?id=BOE-A-2010-3034"
+  },
+  {
+    "fecha_actualizacion": "20251218T213508Z",
+    "identificador": "BOE-A-2006-8149",
+    "ambito": {
+      "codigo": "1",
+      "texto": "Estatal"
+    },
+    "departamento": {
+      "codigo": "7710",
+      "texto": "Ministerio de la Presidencia"
+    },
+    "rango": {
+      "codigo": "1340",
+      "texto": "Real Decreto"
+    },
+    "fecha_disposicion": "20060428",
+    "numero_oficial": "523/2006",
+    "titulo": "Real Decreto 523/2006, de 28 de abril, por el que se suprime la exigencia de aportar el certificado de empadronamiento, como documento probatorio del domicilio y residencia, en los procedimientos administrativos de la Administración General del Estado y de sus organismos públicos vinculados o dependientes.",
+    "diario": "Boletín Oficial del Estado",
+    "fecha_publicacion": "20060509",
+    "diario_numero": "110",
+    "fecha_vigencia": "20060510",
+    "estatus_derogacion": "N",
+    "estatus_anulacion": "N",
+    "vigencia_agotada": "N",
+    "estado_consolidacion": {
+      "codigo": "3",
+      "texto": "Finalizado"
+    },
+    "url_eli": "https://www.boe.es/eli/es/rd/2006/04/28/523",
+    "url_html_consolidada": "https://www.boe.es/buscar/act.php?id=BOE-A-2006-8149"
+  },
+  {
+    "fecha_actualizacion": "20251218T213508Z",
+    "identificador": "BOE-A-2006-8148",
+    "ambito": {
+      "codigo": "1",
+      "texto": "Estatal"
+    },
+    "departamento": {
+      "codigo": "7710",
+      "texto": "Ministerio de la Presidencia"
+    },
+    "rango": {
+      "codigo": "1340",
+      "texto": "Real Decreto"
+    },
+    "fecha_disposicion": "20060428",
+    "numero_oficial": "522/2006",
+    "titulo": "Real Decreto 522/2006, de 28 de abril, por el que se suprime la aportación de fotocopias de documentos de identidad en los procedimientos administrativos de la Administración General del Estado y de sus organismos públicos vinculados o dependientes.",
+    "diario": "Boletín Oficial del Estado",
+    "fecha_publicacion": "20060509",
+    "diario_numero": "110",
+    "fecha_vigencia": "20060510",
+    "estatus_derogacion": "N",
+    "estatus_anulacion": "N",
+    "vigencia_agotada": "N",
+    "estado_consolidacion": {
+      "codigo": "3",
+      "texto": "Finalizado"
+    },
+    "url_eli": "https://www.boe.es/eli/es/rd/2006/04/28/522",
+    "url_html_consolidada": "https://www.boe.es/buscar/act.php?id=BOE-A-2006-8148"
+  },
+  {
+    "fecha_actualizacion": "20251218T200300Z",
+    "identificador": "BOE-A-2003-4151",
+    "ambito": {
+      "codigo": "1",
+      "texto": "Estatal"
+    },
+    "departamento": {
+      "codigo": "7710",
+      "texto": "Ministerio de la Presidencia"
+    },
+    "rango": {
+      "codigo": "1340",
+      "texto": "Real Decreto"
+    },
+    "fecha_disposicion": "20030221",
+    "numero_oficial": "209/2003",
+    "titulo": "Real Decreto 209/2003, de 21 de febrero, por el que se regulan los registros y las notificaciones telemáticas, así como la utilización de medios telemáticos para la sustitución de la aportación de certificados por los ciudadanos.",
+    "diario": "Boletín Oficial del Estado",
+    "fecha_publicacion": "20030228",
+    "diario_numero": "51",
+    "fecha_vigencia": "20030301",
+    "estatus_derogacion": "N",
+    "estatus_anulacion": "N",
+    "vigencia_agotada": "N",
+    "estado_consolidacion": {
+      "codigo": "3",
+      "texto": "Finalizado"
+    },
+    "url_eli": "https://www.boe.es/eli/es/rd/2003/02/21/209",
+    "url_html_consolidada": "https://www.boe.es/buscar/act.php?id=BOE-A-2003-4151"
+  },
+  {
+    "fecha_actualizacion": "20251218T144048Z",
+    "identificador": "BOE-A-1996-4997",
+    "ambito": {
+      "codigo": "1",
+      "texto": "Estatal"
+    },
+    "departamento": {
+      "codigo": "7230",
+      "texto": "Ministerio para las Administraciones Públicas"
+    },
+    "rango": {
+      "codigo": "1340",
+      "texto": "Real Decreto"
+    },
+    "fecha_disposicion": "19960209",
+    "numero_oficial": "208/1996",
+    "titulo": "Real Decreto 208/1996, de 9 de febrero, por el que se regulan los servicios de información administrativa y atención al ciudadano.",
+    "diario": "Boletín Oficial del Estado",
+    "fecha_publicacion": "19960304",
+    "diario_numero": "55",
+    "fecha_vigencia": "19960305",
+    "estatus_derogacion": "N",
+    "estatus_anulacion": "N",
+    "vigencia_agotada": "N",
+    "estado_consolidacion": {
+      "codigo": "3",
+      "texto": "Finalizado"
+    },
+    "url_eli": "https://www.boe.es/eli/es/rd/1996/02/09/208",
+    "url_html_consolidada": "https://www.boe.es/buscar/act.php?id=BOE-A-1996-4997"
+  },
+  {
+    "fecha_actualizacion": "20251217T205143Z",
+    "identificador": "BOE-A-1993-20748",
+    "ambito": {
+      "codigo": "1",
+      "texto": "Estatal"
+    },
+    "departamento": {
+      "codigo": "7230",
+      "texto": "Ministerio para las Administraciones Públicas"
+    },
+    "rango": {
+      "codigo": "1340",
+      "texto": "Real Decreto"
+    },
+    "fecha_disposicion": "19930804",
+    "numero_oficial": "1398/1993",
+    "titulo": "Real Decreto 1398/1993, de 4 de agosto, por el que se aprueba el Reglamento del Procedimiento para el Ejercicio de la Potestad Sancionadora.",
+    "diario": "Boletín Oficial del Estado",
+    "fecha_publicacion": "19930809",
+    "diario_numero": "189",
+    "fecha_vigencia": "19930810",
+    "estatus_derogacion": "S",
+    "fecha_derogacion": "20161002",
+    "estatus_anulacion": "N",
+    "vigencia_agotada": "S",
+    "estado_consolidacion": {
+      "codigo": "3",
+      "texto": "Finalizado"
+    },
+    "url_eli": "https://www.boe.es/eli/es/rd/1993/08/04/1398",
+    "url_html_consolidada": "https://www.boe.es/buscar/act.php?id=BOE-A-1993-20748"
+  },
+  {
+    "fecha_actualizacion": "20251217T205122Z",
+    "identificador": "BOE-A-1993-11253",
+    "ambito": {
+      "codigo": "1",
+      "texto": "Estatal"
+    },
+    "departamento": {
+      "codigo": "7730",
+      "texto": "Ministerio de Relaciones con las Cortes y de la Secretaría del Gobierno"
+    },
+    "rango": {
+      "codigo": "1340",
+      "texto": "Real Decreto"
+    },
+    "fecha_disposicion": "19930326",
+    "numero_oficial": "429/1993",
+    "titulo": "Real Decreto 429/1993, de 26 de marzo, por el que se aprueba el Reglamento de los procedimientos de las Administraciones públicas en materia de responsabilidad patrimonial.",
+    "diario": "Boletín Oficial del Estado",
+    "fecha_publicacion": "19930504",
+    "diario_numero": "106",
+    "fecha_vigencia": "19930505",
+    "estatus_derogacion": "S",
+    "fecha_derogacion": "20161002",
+    "estatus_anulacion": "N",
+    "vigencia_agotada": "S",
+    "estado_consolidacion": {
+      "codigo": "3",
+      "texto": "Finalizado"
+    },
+    "url_eli": "https://www.boe.es/eli/es/rd/1993/03/26/429",
+    "url_html_consolidada": "https://www.boe.es/buscar/act.php?id=BOE-A-1993-11253"
+  },
+  {
+    "fecha_actualizacion": "20251219T120454Z",
+    "identificador": "BOE-A-2009-18358",
+    "ambito": {
+      "codigo": "1",
+      "texto": "Estatal"
+    },
+    "departamento": {
+      "codigo": "7710",
+      "texto": "Ministerio de la Presidencia"
+    },
+    "rango": {
+      "codigo": "1340",
+      "texto": "Real Decreto"
+    },
+    "fecha_disposicion": "20091106",
+    "numero_oficial": "1671/2009",
+    "titulo": "Real Decreto 1671/2009, de 6 de noviembre, por el que se desarrolla parcialmente la Ley 11/2007, de 22 de junio, de acceso electrónico de los ciudadanos a los servicios públicos.",
+    "diario": "Boletín Oficial del Estado",
+    "fecha_publicacion": "20091118",
+    "diario_numero": "278",
+    "fecha_vigencia": "20091119",
+    "estatus_derogacion": "S",
+    "fecha_derogacion": "20210402",
+    "estatus_anulacion": "N",
+    "vigencia_agotada": "S",
+    "estado_consolidacion": {
+      "codigo": "3",
+      "texto": "Finalizado"
+    },
+    "url_eli": "https://www.boe.es/eli/es/rd/2009/11/06/1671",
+    "url_html_consolidada": "https://www.boe.es/buscar/act.php?id=BOE-A-2009-18358"
+  },
+  {
+    "fecha_actualizacion": "20260429T064903Z",
+    "identificador": "BOE-A-2011-15936",
+    "ambito": {
+      "codigo": "1",
+      "texto": "Estatal"
+    },
+    "departamento": {
+      "codigo": "7723",
+      "texto": "Jefatura del Estado"
+    },
+    "rango": {
+      "codigo": "1300",
+      "texto": "Ley"
+    },
+    "fecha_disposicion": "20111010",
+    "numero_oficial": "36/2011",
+    "titulo": "Ley 36/2011, de 10 de octubre, reguladora de la jurisdicción social.",
+    "diario": "Boletín Oficial del Estado",
+    "fecha_publicacion": "20111011",
+    "diario_numero": "245",
+    "fecha_vigencia": "20111211",
+    "estatus_derogacion": "N",
+    "estatus_anulacion": "N",
+    "vigencia_agotada": "N",
+    "estado_consolidacion": {
+      "codigo": "3",
+      "texto": "Finalizado"
+    },
+    "url_eli": "https://www.boe.es/eli/es/l/2011/10/10/36",
+    "url_html_consolidada": "https://www.boe.es/buscar/act.php?id=BOE-A-2011-15936"
+  },
+  {
+    "fecha_actualizacion": "20251218T200436Z",
+    "identificador": "BOE-A-2003-23399",
+    "ambito": {
+      "codigo": "1",
+      "texto": "Estatal"
+    },
+    "departamento": {
+      "codigo": "7723",
+      "texto": "Jefatura del Estado"
+    },
+    "rango": {
+      "codigo": "1300",
+      "texto": "Ley"
+    },
+    "fecha_disposicion": "20031219",
+    "numero_oficial": "59/2003",
+    "titulo": "Ley 59/2003, de 19 de diciembre, de firma electrónica.",
+    "diario": "Boletín Oficial del Estado",
+    "fecha_publicacion": "20031220",
+    "diario_numero": "304",
+    "fecha_vigencia": "20040320",
+    "estatus_derogacion": "S",
+    "fecha_derogacion": "20201113",
+    "estatus_anulacion": "N",
+    "vigencia_agotada": "S",
+    "estado_consolidacion": {
+      "codigo": "3",
+      "texto": "Finalizado"
+    },
+    "url_eli": "https://www.boe.es/eli/es/l/2003/12/19/59",
+    "url_html_consolidada": "https://www.boe.es/buscar/act.php?id=BOE-A-2003-23399"
+  },
+  {
+    "fecha_actualizacion": "20260605T065936Z",
+    "identificador": "BOE-A-2012-5730",
+    "ambito": {
+      "codigo": "1",
+      "texto": "Estatal"
+    },
+    "departamento": {
+      "codigo": "7723",
+      "texto": "Jefatura del Estado"
+    },
+    "rango": {
+      "codigo": "1290",
+      "texto": "Ley Orgánica"
+    },
+    "fecha_disposicion": "20120427",
+    "numero_oficial": "2/2012",
+    "titulo": "Ley Orgánica 2/2012, de 27 de abril, de Estabilidad Presupuestaria y Sostenibilidad Financiera.",
+    "diario": "Boletín Oficial del Estado",
+    "fecha_publicacion": "20120430",
+    "diario_numero": "103",
+    "fecha_vigencia": "20120501",
+    "estatus_derogacion": "N",
+    "estatus_anulacion": "N",
+    "vigencia_agotada": "N",
+    "estado_consolidacion": {
+      "codigo": "3",
+      "texto": "Finalizado"
+    },
+    "url_eli": "https://www.boe.es/eli/es/lo/2012/04/27/2",
+    "url_html_consolidada": "https://www.boe.es/buscar/act.php?id=BOE-A-2012-5730"
+  },
+  {
+    "fecha_actualizacion": "20260610T101203Z",
+    "identificador": "BOE-A-2003-21614",
+    "ambito": {
+      "codigo": "1",
+      "texto": "Estatal"
+    },
+    "departamento": {
+      "codigo": "7723",
+      "texto": "Jefatura del Estado"
+    },
+    "rango": {
+      "codigo": "1300",
+      "texto": "Ley"
+    },
+    "fecha_disposicion": "20031126",
+    "numero_oficial": "47/2003",
+    "titulo": "Ley 47/2003, de 26 de noviembre, General Presupuestaria.",
+    "diario": "Boletín Oficial del Estado",
+    "fecha_publicacion": "20031127",
+    "diario_numero": "284",
+    "fecha_vigencia": "20050101",
+    "estatus_derogacion": "N",
+    "estatus_anulacion": "N",
+    "vigencia_agotada": "N",
+    "estado_consolidacion": {
+      "codigo": "3",
+      "texto": "Finalizado"
+    },
+    "url_eli": "https://www.boe.es/eli/es/l/2003/11/26/47",
+    "url_html_consolidada": "https://www.boe.es/buscar/act.php?id=BOE-A-2003-21614"
+  },
+  {
+    "fecha_actualizacion": "20251220T151338Z",
+    "identificador": "BOE-A-2022-11589",
+    "ambito": {
+      "codigo": "1",
+      "texto": "Estatal"
+    },
+    "departamento": {
+      "codigo": "7723",
+      "texto": "Jefatura del Estado"
+    },
+    "rango": {
+      "codigo": "1300",
+      "texto": "Ley"
+    },
+    "fecha_disposicion": "20220712",
+    "numero_oficial": "15/2022",
+    "titulo": "Ley 15/2022, de 12 de julio, integral para la igualdad de trato y la no discriminación.",
+    "diario": "Boletín Oficial del Estado",
+    "fecha_publicacion": "20220713",
+    "diario_numero": "167",
+    "fecha_vigencia": "20220714",
+    "estatus_derogacion": "N",
+    "estatus_anulacion": "N",
+    "vigencia_agotada": "N",
+    "estado_consolidacion": {
+      "codigo": "3",
+      "texto": "Finalizado"
+    },
+    "url_eli": "https://www.boe.es/eli/es/l/2022/07/12/15",
+    "url_html_consolidada": "https://www.boe.es/buscar/act.php?id=BOE-A-2022-11589"
+  },
+  {
+    "fecha_actualizacion": "20260605T082904Z",
+    "identificador": "BOE-A-2022-10757",
+    "ambito": {
+      "codigo": "1",
+      "texto": "Estatal"
+    },
+    "departamento": {
+      "codigo": "7723",
+      "texto": "Jefatura del Estado"
+    },
+    "rango": {
+      "codigo": "1300",
+      "texto": "Ley"
+    },
+    "fecha_disposicion": "20220628",
+    "numero_oficial": "11/2022",
+    "titulo": "Ley 11/2022, de 28 de junio, General de Telecomunicaciones.",
+    "diario": "Boletín Oficial del Estado",
+    "fecha_publicacion": "20220629",
+    "diario_numero": "155",
+    "fecha_vigencia": "20220630",
+    "estatus_derogacion": "N",
+    "estatus_anulacion": "N",
+    "vigencia_agotada": "N",
+    "estado_consolidacion": {
+      "codigo": "3",
+      "texto": "Finalizado"
+    },
+    "url_eli": "https://www.boe.es/eli/es/l/2022/06/28/11",
+    "url_html_consolidada": "https://www.boe.es/buscar/act.php?id=BOE-A-2022-10757"
+  },
+  {
+    "fecha_actualizacion": "20251220T151307Z",
+    "identificador": "BOE-A-2022-4972",
+    "ambito": {
+      "codigo": "1",
+      "texto": "Estatal"
+    },
+    "departamento": {
+      "codigo": "7723",
+      "texto": "Jefatura del Estado"
+    },
+    "rango": {
+      "codigo": "1320",
+      "texto": "Real Decreto-ley"
+    },
+    "fecha_disposicion": "20220329",
+    "numero_oficial": "6/2022",
+    "titulo": "Real Decreto-ley 6/2022, de 29 de marzo, por el que se adoptan medidas urgentes en el marco del Plan Nacional de respuesta a las consecuencias económicas y sociales de la guerra en Ucrania.",
+    "diario": "Boletín Oficial del Estado",
+    "fecha_publicacion": "20220330",
+    "diario_numero": "76",
+    "fecha_vigencia": "20220331",
+    "estatus_derogacion": "N",
+    "estatus_anulacion": "N",
+    "vigencia_agotada": "N",
+    "estado_consolidacion": {
+      "codigo": "3",
+      "texto": "Finalizado"
+    },
+    "url_eli": "https://www.boe.es/eli/es/rdl/2022/03/29/6",
+    "url_html_consolidada": "https://www.boe.es/buscar/act.php?id=BOE-A-2022-4972"
+  },
+  {
+    "fecha_actualizacion": "20251220T143951Z",
+    "identificador": "BOE-A-2021-11472",
+    "ambito": {
+      "codigo": "1",
+      "texto": "Estatal"
+    },
+    "departamento": {
+      "codigo": "7723",
+      "texto": "Jefatura del Estado"
+    },
+    "rango": {
+      "codigo": "1300",
+      "texto": "Ley"
+    },
+    "fecha_disposicion": "20210709",
+    "numero_oficial": "10/2021",
+    "titulo": "Ley 10/2021, de 9 de julio, de trabajo a distancia.",
+    "diario": "Boletín Oficial del Estado",
+    "fecha_publicacion": "20210710",
+    "diario_numero": "164",
+    "fecha_vigencia": "20210711",
+    "estatus_derogacion": "N",
+    "estatus_anulacion": "N",
+    "vigencia_agotada": "N",
+    "estado_consolidacion": {
+      "codigo": "3",
+      "texto": "Finalizado"
+    },
+    "url_eli": "https://www.boe.es/eli/es/l/2021/07/09/10",
+    "url_html_consolidada": "https://www.boe.es/buscar/act.php?id=BOE-A-2021-11472"
+  },
+  {
+    "fecha_actualizacion": "20260512T103810Z",
+    "identificador": "BOE-A-2020-11043",
+    "ambito": {
+      "codigo": "1",
+      "texto": "Estatal"
+    },
+    "departamento": {
+      "codigo": "7723",
+      "texto": "Jefatura del Estado"
+    },
+    "rango": {
+      "codigo": "1320",
+      "texto": "Real Decreto-ley"
+    },
+    "fecha_disposicion": "20200922",
+    "numero_oficial": "28/2020",
+    "titulo": "Real Decreto-ley 28/2020, de 22 de septiembre, de trabajo a distancia.",
+    "diario": "Boletín Oficial del Estado",
+    "fecha_publicacion": "20200923",
+    "diario_numero": "253",
+    "fecha_vigencia": "20201013",
+    "estatus_derogacion": "S",
+    "fecha_derogacion": "20210711",
+    "estatus_anulacion": "N",
+    "vigencia_agotada": "S",
+    "estado_consolidacion": {
+      "codigo": "3",
+      "texto": "Finalizado"
+    },
+    "url_eli": "https://www.boe.es/eli/es/rdl/2020/09/22/28",
+    "url_html_consolidada": "https://www.boe.es/buscar/act.php?id=BOE-A-2020-11043"
+  },
+  {
+    "fecha_actualizacion": "20260224T105022Z",
+    "identificador": "BOE-A-2020-9131",
+    "ambito": {
+      "codigo": "1",
+      "texto": "Estatal"
+    },
+    "departamento": {
+      "codigo": "7723",
+      "texto": "Jefatura del Estado"
+    },
+    "rango": {
+      "codigo": "1320",
+      "texto": "Real Decreto-ley"
+    },
+    "fecha_disposicion": "20200804",
+    "numero_oficial": "27/2020",
+    "titulo": "Real Decreto-ley 27/2020, de 4 de agosto, de medidas financieras, de carácter extraordinario y urgente, aplicables a las entidades locales.",
+    "diario": "Boletín Oficial del Estado",
+    "fecha_publicacion": "20200805",
+    "diario_numero": "211",
+    "fecha_vigencia": "20200805",
+    "estatus_derogacion": "S",
+    "fecha_derogacion": "20200911",
+    "estatus_anulacion": "N",
+    "vigencia_agotada": "S",
+    "estado_consolidacion": {
+      "codigo": "3",
+      "texto": "Finalizado"
+    },
+    "url_eli": "https://www.boe.es/eli/es/rdl/2020/08/04/27",
+    "url_html_consolidada": "https://www.boe.es/buscar/act.php?id=BOE-A-2020-9131"
+  },
+  {
+    "fecha_actualizacion": "20260312T150812Z",
+    "identificador": "BOE-A-2019-15790",
+    "ambito": {
+      "codigo": "1",
+      "texto": "Estatal"
+    },
+    "departamento": {
+      "codigo": "7723",
+      "texto": "Jefatura del Estado"
+    },
+    "rango": {
+      "codigo": "1320",
+      "texto": "Real Decreto-ley"
+    },
+    "fecha_disposicion": "20191031",
+    "numero_oficial": "14/2019",
+    "titulo": "Real Decreto-ley 14/2019, de 31 de octubre, por el que se adoptan medidas urgentes por razones de seguridad pública en materia de administración digital, contratación del sector público y telecomunicaciones.",
+    "diario": "Boletín Oficial del Estado",
+    "fecha_publicacion": "20191105",
+    "diario_numero": "266",
+    "fecha_vigencia": "20191106",
+    "estatus_derogacion": "N",
+    "estatus_anulacion": "N",
+    "vigencia_agotada": "N",
+    "estado_consolidacion": {
+      "codigo": "3",
+      "texto": "Finalizado"
+    },
+    "url_eli": "https://www.boe.es/eli/es/rdl/2019/10/31/14",
+    "url_html_consolidada": "https://www.boe.es/buscar/act.php?id=BOE-A-2019-15790"
+  },
+  {
+    "fecha_actualizacion": "20260526T103624Z",
+    "identificador": "BOE-A-2018-16673",
+    "ambito": {
+      "codigo": "1",
+      "texto": "Estatal"
+    },
+    "departamento": {
+      "codigo": "7723",
+      "texto": "Jefatura del Estado"
+    },
+    "rango": {
+      "codigo": "1290",
+      "texto": "Ley Orgánica"
+    },
+    "fecha_disposicion": "20181205",
+    "numero_oficial": "3/2018",
+    "titulo": "Ley Orgánica 3/2018, de 5 de diciembre, de Protección de Datos Personales y garantía de los derechos digitales.",
+    "diario": "Boletín Oficial del Estado",
+    "fecha_publicacion": "20181206",
+    "diario_numero": "294",
+    "fecha_vigencia": "20181207",
+    "estatus_derogacion": "N",
+    "estatus_anulacion": "N",
+    "vigencia_agotada": "N",
+    "estado_consolidacion": {
+      "codigo": "3",
+      "texto": "Finalizado"
+    },
+    "url_eli": "https://www.boe.es/eli/es/lo/2018/12/05/3",
+    "url_html_consolidada": "https://www.boe.es/buscar/act.php?id=BOE-A-2018-16673"
+  },
+  {
+    "fecha_actualizacion": "20251220T105257Z",
+    "identificador": "BOE-A-2018-12131",
+    "ambito": {
+      "codigo": "1",
+      "texto": "Estatal"
+    },
+    "departamento": {
+      "codigo": "7723",
+      "texto": "Jefatura del Estado"
+    },
+    "rango": {
+      "codigo": "1320",
+      "texto": "Real Decreto-ley"
+    },
+    "fecha_disposicion": "20180831",
+    "numero_oficial": "11/2018",
+    "titulo": "Real Decreto-ley 11/2018, de 31 de agosto, de transposición de directivas en materia de protección de los compromisos por pensiones con los trabajadores, prevención del blanqueo de capitales y requisitos de entrada y residencia de nacionales de países terceros y por el que se modifica la Ley 39/2015, de 1 de octubre, del Procedimiento Administrativo Común de las Administraciones Públicas.",
+    "diario": "Boletín Oficial del Estado",
+    "fecha_publicacion": "20180904",
+    "diario_numero": "214",
+    "fecha_vigencia": "20180904",
+    "estatus_derogacion": "N",
+    "estatus_anulacion": "N",
+    "vigencia_agotada": "N",
+    "estado_consolidacion": {
+      "codigo": "3",
+      "texto": "Finalizado"
+    },
+    "url_eli": "https://www.boe.es/eli/es/rdl/2018/08/31/11",
+    "url_html_consolidada": "https://www.boe.es/buscar/act.php?id=BOE-A-2018-12131"
+  },
+  {
+    "fecha_actualizacion": "20260604T082804Z",
+    "identificador": "BOE-A-2024-22928",
+    "ambito": {
+      "codigo": "1",
+      "texto": "Estatal"
+    },
+    "departamento": {
+      "codigo": "7723",
+      "texto": "Jefatura del Estado"
+    },
+    "rango": {
+      "codigo": "1320",
+      "texto": "Real Decreto-ley"
+    },
+    "fecha_disposicion": "20241105",
+    "numero_oficial": "6/2024",
+    "titulo": "Real Decreto-ley 6/2024, de 5 de noviembre, por el que se adoptan medidas urgentes de respuesta ante los daños causados por la Depresión Aislada en Niveles Altos (DANA) en diferentes municipios entre el 28 de octubre y el 4 de noviembre de 2024.",
+    "diario": "Boletín Oficial del Estado",
+    "fecha_publicacion": "20241106",
+    "diario_numero": "268",
+    "fecha_vigencia": "20241107",
+    "estatus_derogacion": "N",
+    "estatus_anulacion": "N",
+    "vigencia_agotada": "N",
+    "estado_consolidacion": {
+      "codigo": "3",
+      "texto": "Finalizado"
+    },
+    "url_eli": "https://www.boe.es/eli/es/rdl/2024/11/05/6",
+    "url_html_consolidada": "https://www.boe.es/buscar/act.php?id=BOE-A-2024-22928"
+  },
+  {
+    "fecha_actualizacion": "20251220T151408Z",
+    "identificador": "BOE-A-2022-17040",
+    "ambito": {
+      "codigo": "1",
+      "texto": "Estatal"
+    },
+    "departamento": {
+      "codigo": "7723",
+      "texto": "Jefatura del Estado"
+    },
+    "rango": {
+      "codigo": "1320",
+      "texto": "Real Decreto-ley"
+    },
+    "fecha_disposicion": "20221018",
+    "numero_oficial": "18/2022",
+    "titulo": "Real Decreto-ley 18/2022, de 18 de octubre, por el que se aprueban medidas de refuerzo de la protección de los consumidores de energía y de contribución a la reducción del consumo de gas natural en aplicación del \"Plan + seguridad para tu energía (+SE)\", así como medidas en materia de retribuciones del personal al servicio del sector público y de protección de las personas trabajadoras agrarias eventuales afectadas por la sequía.",
+    "diario": "Boletín Oficial del Estado",
+    "fecha_publicacion": "20221019",
+    "diario_numero": "251",
+    "fecha_vigencia": "20221020",
+    "estatus_derogacion": "N",
+    "estatus_anulacion": "N",
+    "vigencia_agotada": "N",
+    "estado_consolidacion": {
+      "codigo": "3",
+      "texto": "Finalizado"
+    },
+    "url_eli": "https://www.boe.es/eli/es/rdl/2022/10/18/18",
+    "url_html_consolidada": "https://www.boe.es/buscar/act.php?id=BOE-A-2022-17040"
+  },
+  {
+    "fecha_actualizacion": "20260414T074302Z",
+    "identificador": "BOE-A-2021-5032",
+    "ambito": {
+      "codigo": "1",
+      "texto": "Estatal"
+    },
+    "departamento": {
+      "codigo": "9574",
+      "texto": "Ministerio de la Presidencia, Relaciones con las Cortes y Memoria Democrática"
+    },
+    "rango": {
+      "codigo": "1340",
+      "texto": "Real Decreto"
+    },
+    "fecha_disposicion": "20210330",
+    "numero_oficial": "203/2021",
+    "titulo": "Real Decreto 203/2021, de 30 de marzo, por el que se aprueba el Reglamento de actuación y funcionamiento del sector público por medios electrónicos.",
+    "diario": "Boletín Oficial del Estado",
+    "fecha_publicacion": "20210331",
+    "diario_numero": "77",
+    "fecha_vigencia": "20210402",
+    "estatus_derogacion": "N",
+    "estatus_anulacion": "N",
+    "vigencia_agotada": "N",
+    "estado_consolidacion": {
+      "codigo": "3",
+      "texto": "Finalizado"
+    },
+    "url_eli": "https://www.boe.es/eli/es/rd/2021/03/30/203",
+    "url_html_consolidada": "https://www.boe.es/buscar/act.php?id=BOE-A-2021-5032"
+  },
+  {
+    "fecha_actualizacion": "20251220T144038Z",
+    "identificador": "BOE-A-2021-20477",
+    "ambito": {
+      "codigo": "1",
+      "texto": "Estatal"
+    },
+    "departamento": {
+      "codigo": "9574",
+      "texto": "Ministerio de la Presidencia, Relaciones con las Cortes y Memoria Democrática"
+    },
+    "rango": {
+      "codigo": "1350",
+      "texto": "Orden"
+    },
+    "fecha_disposicion": "20211209",
+    "numero_oficial": "PCM/1382/2021",
+    "titulo": "Orden PCM/1382/2021, de 9 de diciembre, por la que se regula el Registro Electrónico General en el ámbito de la Administración General del Estado.",
+    "diario": "Boletín Oficial del Estado",
+    "fecha_publicacion": "20211211",
+    "diario_numero": "296",
+    "fecha_vigencia": "20211212",
+    "estatus_derogacion": "N",
+    "estatus_anulacion": "N",
+    "vigencia_agotada": "N",
+    "estado_consolidacion": {
+      "codigo": "3",
+      "texto": "Finalizado"
+    },
+    "url_eli": "https://www.boe.es/eli/es/o/2021/12/09/pcm1382",
+    "url_html_consolidada": "https://www.boe.es/buscar/act.php?id=BOE-A-2021-20477"
+  },
+  {
+    "fecha_actualizacion": "20251220T143914Z",
+    "identificador": "BOE-A-2021-4570",
+    "ambito": {
+      "codigo": "1",
+      "texto": "Estatal"
+    },
+    "departamento": {
+      "codigo": "3120",
+      "texto": "Ministerio de Agricultura, Pesca y Alimentación"
+    },
+    "rango": {
+      "codigo": "1340",
+      "texto": "Real Decreto"
+    },
+    "fecha_disposicion": "20210302",
+    "numero_oficial": "137/2021",
+    "titulo": "Real Decreto 137/2021, de 2 de marzo, por el que se establecen disposiciones específicas para la tramitación de procedimientos sancionadores en comercio y sanidad exterior, en materia de sanidad vegetal, y de sanidad y protección animal.",
+    "diario": "Boletín Oficial del Estado",
+    "fecha_publicacion": "20210324",
+    "diario_numero": "71",
+    "fecha_vigencia": "20210325",
+    "estatus_derogacion": "N",
+    "estatus_anulacion": "N",
+    "vigencia_agotada": "N",
+    "estado_consolidacion": {
+      "codigo": "3",
+      "texto": "Finalizado"
+    },
+    "url_eli": "https://www.boe.es/eli/es/rd/2021/03/02/137",
+    "url_html_consolidada": "https://www.boe.es/buscar/act.php?id=BOE-A-2021-4570"
+  },
+  {
+    "fecha_actualizacion": "20251218T213533Z",
+    "identificador": "BOE-A-2006-13011",
+    "ambito": {
+      "codigo": "1",
+      "texto": "Estatal"
+    },
+    "departamento": {
+      "codigo": "7723",
+      "texto": "Jefatura del Estado"
+    },
+    "rango": {
+      "codigo": "1300",
+      "texto": "Ley"
+    },
+    "fecha_disposicion": "20060718",
+    "numero_oficial": "28/2006",
+    "titulo": "Ley 28/2006, de 18 de julio, de Agencias estatales para la mejora de los servicios públicos.",
+    "diario": "Boletín Oficial del Estado",
+    "fecha_publicacion": "20060719",
+    "diario_numero": "171",
+    "fecha_vigencia": "20060720",
+    "estatus_derogacion": "S",
+    "fecha_derogacion": "20161002",
+    "estatus_anulacion": "N",
+    "vigencia_agotada": "S",
+    "estado_consolidacion": {
+      "codigo": "3",
+      "texto": "Finalizado"
+    },
+    "url_eli": "https://www.boe.es/eli/es/l/2006/07/18/28",
+    "url_html_consolidada": "https://www.boe.es/buscar/act.php?id=BOE-A-2006-13011"
+  },
+  {
+    "fecha_actualizacion": "20260225T083249Z",
+    "identificador": "BOE-A-2002-25180",
+    "ambito": {
+      "codigo": "1",
+      "texto": "Estatal"
+    },
+    "departamento": {
+      "codigo": "7723",
+      "texto": "Jefatura del Estado"
+    },
+    "rango": {
+      "codigo": "1300",
+      "texto": "Ley"
+    },
+    "fecha_disposicion": "20021226",
+    "numero_oficial": "50/2002",
+    "titulo": "Ley 50/2002, de 26 de diciembre, de Fundaciones.",
+    "diario": "Boletín Oficial del Estado",
+    "fecha_publicacion": "20021227",
+    "diario_numero": "310",
+    "fecha_vigencia": "20030101",
+    "estatus_derogacion": "N",
+    "estatus_anulacion": "N",
+    "vigencia_agotada": "N",
+    "estado_consolidacion": {
+      "codigo": "3",
+      "texto": "Finalizado"
+    },
+    "url_eli": "https://www.boe.es/eli/es/l/2002/12/26/50",
+    "url_html_consolidada": "https://www.boe.es/buscar/act.php?id=BOE-A-2002-25180"
+  },
+  {
+    "fecha_actualizacion": "20251217T115643Z",
+    "identificador": "BOE-A-1986-9865",
+    "ambito": {
+      "codigo": "1",
+      "texto": "Estatal"
+    },
+    "departamento": {
+      "codigo": "7220",
+      "texto": "Ministerio de Administración Territorial"
+    },
+    "rango": {
+      "codigo": "1310",
+      "texto": "Real Decreto Legislativo"
+    },
+    "fecha_disposicion": "19860418",
+    "numero_oficial": "781/1986",
+    "titulo": "Real Decreto Legislativo 781/1986, de 18 de abril, por el que se aprueba el texto refundido de las disposiciones legales vigentes en materia de Régimen Local.",
+    "diario": "Boletín Oficial del Estado",
+    "fecha_publicacion": "19860422",
+    "diario_numero": "96",
+    "fecha_vigencia": "19860512",
+    "estatus_derogacion": "N",
+    "estatus_anulacion": "N",
+    "vigencia_agotada": "N",
+    "estado_consolidacion": {
+      "codigo": "3",
+      "texto": "Finalizado"
+    },
+    "url_eli": "https://www.boe.es/eli/es/rdlg/1986/04/18/781",
+    "url_html_consolidada": "https://www.boe.es/buscar/act.php?id=BOE-A-1986-9865"
+  },
+  {
+    "fecha_actualizacion": "20260609T110103Z",
+    "identificador": "BOE-A-1985-5392",
+    "ambito": {
+      "codigo": "1",
+      "texto": "Estatal"
+    },
+    "departamento": {
+      "codigo": "7723",
+      "texto": "Jefatura del Estado"
+    },
+    "rango": {
+      "codigo": "1300",
+      "texto": "Ley"
+    },
+    "fecha_disposicion": "19850402",
+    "numero_oficial": "7/1985",
+    "titulo": "Ley 7/1985, de 2 de abril, Reguladora de las Bases del Régimen Local",
+    "diario": "Boletín Oficial del Estado",
+    "fecha_publicacion": "19850403",
+    "diario_numero": "80",
+    "fecha_vigencia": "19850423",
+    "estatus_derogacion": "N",
+    "estatus_anulacion": "N",
+    "vigencia_agotada": "N",
+    "estado_consolidacion": {
+      "codigo": "3",
+      "texto": "Finalizado"
+    },
+    "url_eli": "https://www.boe.es/eli/es/l/1985/04/02/7",
+    "url_html_consolidada": "https://www.boe.es/buscar/act.php?id=BOE-A-1985-5392"
+  },
+  {
+    "fecha_actualizacion": "20251216T102453Z",
+    "identificador": "BOE-A-1955-10057",
+    "ambito": {
+      "codigo": "1",
+      "texto": "Estatal"
+    },
+    "departamento": {
+      "codigo": "7330",
+      "texto": "Ministerio de la Gobernación"
+    },
+    "rango": {
+      "codigo": "1510",
+      "texto": "Decreto"
+    },
+    "fecha_disposicion": "19550617",
+    "titulo": "Decreto de 17 de junio de 1955 por el que se aprueba el Reglamento de Servicios de las Corporaciones locales.",
+    "diario": "Boletín Oficial del Estado",
+    "fecha_publicacion": "19550715",
+    "diario_numero": "196",
+    "fecha_vigencia": "19550804",
+    "estatus_derogacion": "N",
+    "estatus_anulacion": "N",
+    "vigencia_agotada": "N",
+    "estado_consolidacion": {
+      "codigo": "3",
+      "texto": "Finalizado"
+    },
+    "url_eli": "https://www.boe.es/eli/es/d/1955/06/17/(1)",
+    "url_html_consolidada": "https://www.boe.es/buscar/act.php?id=BOE-A-1955-10057"
+  },
+  {
+    "fecha_actualizacion": "20251219T183816Z",
+    "identificador": "BOE-A-2015-7897",
+    "ambito": {
+      "codigo": "1",
+      "texto": "Estatal"
+    },
+    "departamento": {
+      "codigo": "7723",
+      "texto": "Jefatura del Estado"
+    },
+    "rango": {
+      "codigo": "1300",
+      "texto": "Ley"
+    },
+    "fecha_disposicion": "20150714",
+    "numero_oficial": "20/2015",
+    "titulo": "Ley 20/2015, de 14 de julio, de ordenación, supervisión y solvencia de las entidades aseguradoras y reaseguradoras.",
+    "diario": "Boletín Oficial del Estado",
+    "fecha_publicacion": "20150715",
+    "diario_numero": "168",
+    "fecha_vigencia": "20160101",
+    "estatus_derogacion": "N",
+    "estatus_anulacion": "N",
+    "vigencia_agotada": "N",
+    "estado_consolidacion": {
+      "codigo": "3",
+      "texto": "Finalizado"
+    },
+    "url_eli": "https://www.boe.es/eli/es/l/2015/07/14/20",
+    "url_html_consolidada": "https://www.boe.es/buscar/act.php?id=BOE-A-2015-7897"
+  }
+]

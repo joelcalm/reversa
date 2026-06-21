@@ -1,0 +1,41 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.eggs/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.venv/
+venv/
+env/
+backend/.venv/
+
+# Node / frontend
+node_modules/
+frontend/dist/
+frontend/.vite/
+*.local
+
+# Data: do not commit large raw cache or generated DBs
+data/cache/boe/
+data/processed/*.db
+data/processed/*.sqlite
+data/processed/*.sqlite3
+data/processed/data_quality_report.json
+
+# Keep directory placeholders and small samples
+!data/cache/.gitkeep
+!data/processed/.gitkeep
+!data/samples/.gitkeep
+
+# OS / editor
+.DS_Store
+*.swp
+.idea/
+.vscode/
+
+# Env
+.env
+*.env
+!.env.example

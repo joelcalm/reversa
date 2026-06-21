@@ -1,0 +1,21 @@
+# Optional containerized run. The SQLite DB lives in ./data so it persists and can be
+# regenerated. Run ingestion once on the host (make ingest-sample && make compute) or
+# exec into the backend container to populate the database before using the UI.
+services:
+  backend:
+    build: ./backend
+    container_name: boe-backend
+    environment:
+      BOE_DB_PATH: /data/processed/boe_graph.db
+    volumes:
+      - ./data:/data
+    ports:
+      - "8000:8000"
+
+  frontend:
+    build: ./frontend
+    container_name: boe-frontend
+    depends_on:
+      - backend
+    ports:
+      - "5173:80"
