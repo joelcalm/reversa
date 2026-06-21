@@ -48,6 +48,24 @@ def test_summary(db, insert_norm, insert_relation):
     assert body["total_norms"] >= 5
 
 
+def test_data_quality_endpoint(db, insert_norm, insert_relation):
+    _seed(db, insert_norm, insert_relation)
+    client = _client(db)
+    r = client.get("/api/data-quality")
+    assert r.status_code == 200
+    body = r.json()
+    for key in (
+        "total_norms",
+        "total_relations",
+        "relation_counts_by_type",
+        "lifecycle_counts",
+        "unknown_target_relations",
+        "labels",
+        "other_label_occurrences",
+    ):
+        assert key in body
+
+
 def test_briefing_endpoints_structure(db, insert_norm, insert_relation):
     _seed(db, insert_norm, insert_relation)
     client = _client(db)
@@ -69,6 +87,34 @@ def test_briefing_endpoints_structure(db, insert_norm, insert_relation):
     body4 = r4.json()
     assert "total_live_direct_citers" in body4
     assert "citing_norms" in body4
+
+
+def test_cleanup_impact_endpoint(db, insert_norm, insert_relation):
+    _seed(db, insert_norm, insert_relation)
+    client = _client(db)
+    r = client.get("/api/briefings/ley-30-1992-cleanup-impact?scope=state")
+    assert r.status_code == 200
+    body = r.json()
+    for key in ("denominator_live_norms", "before", "ley_30_1992", "after_simulated_cleanup"):
+        assert key in body
+    assert "repeal_context" in body["ley_30_1992"]
+
+
+def test_evidence_endpoint(db, insert_norm, insert_relation):
+    _seed(db, insert_norm, insert_relation)
+    client = _client(db)
+    r = client.get("/api/briefings/unreadable-laws/evidence?norm_id=X&scope=state&limit=10")
+    assert r.status_code == 200
+    body = r.json()
+    assert body["norm_id"] == "X"
+    assert "items" in body and "total" in body
+
+    r2 = client.get("/api/briefings/ley-30-1992-blast-radius/evidence?scope=state")
+    assert r2.status_code == 200
+    assert r2.json()["norm_id"] == LEY_30_1992_ID
+
+    r3 = client.get("/api/briefings/does-not-exist/evidence?norm_id=X")
+    assert r3.status_code == 404
 
 
 def test_graph_endpoint(db, insert_norm, insert_relation):

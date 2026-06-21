@@ -1,10 +1,52 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Search } from "lucide-react";
 import { api } from "../api/client";
-import { BoeLink, formatBoeDate, StatusPill } from "../components/common";
+import { BoeLink, EvidenceButton, formatBoeDate, StatusPill } from "../components/common";
+import EvidenceDrawer, { type EvidenceTarget } from "../components/EvidenceDrawer";
 import GraphView, { GraphLegend } from "../graph/GraphView";
 import { Empty, ErrorView, Loading } from "../components/States";
-import type { GraphData, Norm } from "../types";
+import type { BriefingKey, GraphData, LifecycleStatus, Norm } from "../types";
+
+function inferBriefingKey(norm: Norm): BriefingKey {
+  if (norm.id === "BOE-A-1992-26318") return "ley-30-1992-blast-radius";
+  if (norm.lifecycle_status && norm.lifecycle_status !== "LIVE") return "dead-law-dependencies";
+  if ((norm.metrics?.amends_count ?? 0) >= (norm.metrics?.amended_by_count ?? 0)) {
+    return "omnibus-laws";
+  }
+  return "unreadable-laws";
+}
+
+function filterExplorerGraph(
+  graph: GraphData,
+  opts: { lifecycle: string; rank: string; department: string },
+): GraphData {
+  const nodeOk = (n: GraphData["nodes"][0]) => {
+    const d = n.data;
+    if (opts.lifecycle && d.lifecycle_status !== opts.lifecycle) return false;
+    if (opts.rank && d.rank !== opts.rank) return false;
+    if (opts.department && d.department !== opts.department) return false;
+    return true;
+  };
+  const hub = graph.meta?.focus_id;
+  const visible = new Set(graph.nodes.filter(nodeOk).map((n) => n.data.id));
+  if (hub) visible.add(hub);
+  const edges = graph.edges.filter(
+    (e) => visible.has(e.data.source) && visible.has(e.data.target),
+  );
+  const connected = new Set<string>();
+  for (const e of edges) {
+    connected.add(e.data.source);
+    connected.add(e.data.target);
+  }
+  const nodes = graph.nodes.filter(
+    (n) => visible.has(n.data.id) && (connected.has(n.data.id) || n.data.id === hub),
+  );
+  return {
+    nodes,
+    edges,
+    meta: { ...graph.meta, node_count: nodes.length, edge_count: edges.length },
+  };
+}
 
 function explorerLegendNote(meta?: GraphData["meta"]): string | undefined {
   if (!meta) return undefined;
@@ -33,8 +75,12 @@ export default function GraphExplorer() {
   const [direction, setDirection] = useState<"all" | "incoming" | "outgoing">("all");
   const [limit, setLimit] = useState(80);
   const [showLabels, setShowLabels] = useState(false);
+  const [lifecycleFilter, setLifecycleFilter] = useState("");
+  const [rankFilter, setRankFilter] = useState("");
+  const [deptFilter, setDeptFilter] = useState("");
   const [graph, setGraph] = useState<GraphData | null>(null);
   const [detail, setDetail] = useState<Norm | null>(null);
+  const [evidence, setEvidence] = useState<EvidenceTarget | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -67,6 +113,35 @@ export default function GraphExplorer() {
     }
   };
 
+  const openEvidence = (norm: Norm) => {
+    setEvidence({
+      briefingKey: inferBriefingKey(norm),
+      normId: norm.id,
+      title: norm.title ?? norm.id,
+    });
+  };
+
+  const filteredGraph = useMemo(() => {
+    if (!graph) return null;
+    return filterExplorerGraph(graph, {
+      lifecycle: lifecycleFilter,
+      rank: rankFilter,
+      department: deptFilter,
+    });
+  }, [graph, lifecycleFilter, rankFilter, deptFilter]);
+
+  const ranks = useMemo(
+    () => Array.from(new Set((graph?.nodes ?? []).map((n) => n.data.rank).filter(Boolean))).sort(),
+    [graph],
+  );
+  const departments = useMemo(
+    () =>
+      Array.from(
+        new Set((graph?.nodes ?? []).map((n) => n.data.department).filter(Boolean)),
+      ).sort() as string[],
+    [graph],
+  );
+
   useEffect(() => {
     if (selectedId) openNorm(selectedId);
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -75,7 +150,10 @@ export default function GraphExplorer() {
   return (
     <div>
       <div className="page-header">
-        <h1>Graph explorer</h1>
+        <h1>Explorer</h1>
+        <p className="muted" style={{ marginTop: 4 }}>
+          Advanced graph tool — search any norm and inspect its neighborhood.
+        </p>
       </div>
       <p className="explanation">
         Search a norm by title or BOE ID, then explore its neighborhood of amendments, repeals and
@@ -136,6 +214,33 @@ export default function GraphExplorer() {
           />
           Show all labels
         </label>
+        <select
+          className="input"
+          value={lifecycleFilter}
+          onChange={(e) => setLifecycleFilter(e.target.value)}
+          title="Filter by lifecycle status"
+        >
+          <option value="">All statuses</option>
+          {(["LIVE", "REPEALED", "ANNULLED", "EXPIRED"] as LifecycleStatus[]).map((s) => (
+            <option key={s} value={s}>{s}</option>
+          ))}
+        </select>
+        {ranks.length > 0 && (
+          <select className="input" value={rankFilter} onChange={(e) => setRankFilter(e.target.value)}>
+            <option value="">All ranks</option>
+            {ranks.map((r) => (
+              <option key={r} value={r}>{r}</option>
+            ))}
+          </select>
+        )}
+        {departments.length > 0 && (
+          <select className="input" value={deptFilter} onChange={(e) => setDeptFilter(e.target.value)}>
+            <option value="">All departments</option>
+            {departments.map((d) => (
+              <option key={d} value={d}>{d}</option>
+            ))}
+          </select>
+        )}
       </div>
 
       {results.length > 0 && (
@@ -164,20 +269,20 @@ export default function GraphExplorer() {
         <div className="graph-shell">
           {loading && <Loading message="Loading neighborhood…" />}
           {!loading && !selectedId && <Empty message="Search and select a norm to explore." />}
-          {!loading && selectedId && graph && graph.nodes.length === 0 && (
+          {!loading && selectedId && filteredGraph && filteredGraph.nodes.length === 0 && (
             <Empty message="No relations found for this norm and filter." />
           )}
-          {!loading && graph && graph.nodes.length > 0 && (
+          {!loading && filteredGraph && filteredGraph.nodes.length > 0 && (
             <>
               <GraphView
-                data={graph}
+                data={filteredGraph}
                 focusId={selectedId ?? undefined}
                 layoutMode="explorer"
                 showLabels={showLabels}
                 onNodeClick={openNorm}
                 height={640}
               />
-              <GraphLegend note={explorerLegendNote(graph.meta)} />
+              <GraphLegend note={explorerLegendNote(filteredGraph.meta)} />
             </>
           )}
         </div>
@@ -231,12 +336,17 @@ export default function GraphExplorer() {
                   </div>
                 </>
               )}
+              <div style={{ marginTop: 16 }}>
+                <EvidenceButton onClick={() => openEvidence(detail)} />
+              </div>
             </>
           ) : (
             <div className="muted">Node details will appear here.</div>
           )}
         </aside>
       </div>
+
+      <EvidenceDrawer target={evidence} scope="state" onClose={() => setEvidence(null)} />
     </div>
   );
 }

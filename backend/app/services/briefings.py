@@ -12,6 +12,7 @@ the state scope.
 from __future__ import annotations
 
 import json
+import math
 from datetime import datetime, timezone
 from typing import Any, Dict, List, Optional, Sequence
 
@@ -328,8 +329,13 @@ def compute_omnibus(conn, scope: str = DEFAULT_SCOPE, limit: int = 5) -> Dict[st
         nid = r._mapping["norm_id"]
         item = dict(norms_map.get(nid, {"id": nid}))
         item["rank_position"] = rank
-        item["target_count"] = r._mapping["target_count"]
-        item["subject_diversity"] = _subject_diversity(conn, nid)
+        target_count = r._mapping["target_count"]
+        subject_diversity = _subject_diversity(conn, nid)
+        item["target_count"] = target_count
+        item["subject_diversity"] = subject_diversity
+        # Secondary indicators (ranking stays by target_count).
+        item["department_diversity"] = _department_diversity(conn, nid)
+        item["omnibus_score"] = round(target_count * math.log(1 + subject_diversity), 2)
         items.append(item)
     return {"briefing": "omnibus-laws", "scope": scope, "items": items}
 
@@ -340,6 +346,17 @@ def _subject_diversity(conn, norm_id: str) -> int:
         "SELECT COUNT(DISTINCT ns.subject_code) FROM relations r "
         "JOIN norm_subjects ns ON ns.norm_id = r.target_norm_id "
         "WHERE r.source_norm_id = :sid AND r.relation_type = 'AMENDS'"
+    )
+    return conn.execute(sql, {"sid": norm_id}).scalar() or 0
+
+
+def _department_diversity(conn, norm_id: str) -> int:
+    """Secondary indicator: distinct departments across the norms this one amends."""
+    sql = text(
+        "SELECT COUNT(DISTINCT t.department) FROM relations r "
+        "JOIN norms t ON t.id = r.target_norm_id "
+        "WHERE r.source_norm_id = :sid AND r.relation_type = 'AMENDS' "
+        "AND t.department IS NOT NULL AND t.department != ''"
     )
     return conn.execute(sql, {"sid": norm_id}).scalar() or 0
 
@@ -424,6 +441,13 @@ def compute_blast_radius(conn, scope: str = DEFAULT_SCOPE) -> Dict[str, Any]:
 
     ids = [r._mapping["norm_id"] for r in rows]
     norms_map = _fetch_norms_map(conn, ids)
+
+    # Worklist intelligence (deterministic heuristics + dead-law counts), imported lazily
+    # to avoid a circular import at module load.
+    from app.services import ley30
+
+    dead_counts = ley30.dead_law_citation_counts(conn, ids, scope)
+
     citing = []
     for rank, r in enumerate(rows, start=1):
         nid = r._mapping["norm_id"]
@@ -431,6 +455,10 @@ def compute_blast_radius(conn, scope: str = DEFAULT_SCOPE) -> Dict[str, Any]:
         item["rank_position"] = rank
         item["relation_label_raw"] = r._mapping["relation_label_raw"]
         item["relation_detail_raw"] = r._mapping["relation_detail_raw"]
+        # Each worklist norm cites Ley 30/1992 (a dead norm), so its dead-law count is >= 1.
+        ley30.enrich_worklist_item(
+            item, dead_law_citations_count=dead_counts.get(nid, 1) or 1
+        )
         citing.append(item)
 
     return {
@@ -438,6 +466,7 @@ def compute_blast_radius(conn, scope: str = DEFAULT_SCOPE) -> Dict[str, Any]:
         "scope": scope,
         "target_id": LEY_30_1992_ID,
         "ley_30_1992": target,
+        "repeal_context": ley30.get_ley30_repeal_context(conn),
         "total_live_direct_citers": len(citing),
         "citing_norms": citing,
     }
@@ -482,14 +511,16 @@ def _build_graph(
             "in_degree": in_deg.get(nid, 0),
             "out_degree": out_deg.get(nid, 0),
         }
-        nodes.append(
-            _node(
-                norms_map.get(nid),
-                nid,
-                metrics=metrics,
-                hub=nid in hubs,
-            )
+        node = _node(
+            norms_map.get(nid),
+            nid,
+            metrics=metrics,
+            hub=nid in hubs,
         )
+        # Flat weight drives metric-based node sizing in the frontend stylesheet:
+        # incoming for unreadable/dead-law/blast hubs, outgoing for omnibus.
+        node["data"]["weight"] = max(in_deg.get(nid, 0), out_deg.get(nid, 0), 1)
+        nodes.append(node)
     edges = [_edge(r) for r in rows]
     meta: Dict[str, Any] = {
         "node_count": len(nodes),
@@ -634,6 +665,49 @@ def compute_summary(conn) -> Dict[str, Any]:
         "default_scope": DEFAULT_SCOPE,
         "scope_label": STATE_SCOPE_LABEL,
         "last_ingestion_at": last_ingestion,
+    }
+
+
+def compute_data_quality(conn, label_limit: int = 50) -> Dict[str, Any]:
+    """Engineering audit payload for the Data Quality page."""
+    summary = compute_summary(conn)
+    unknown_targets = (
+        conn.execute(
+            text("SELECT COUNT(*) FROM relations WHERE target_known = 0 OR target_known IS NULL")
+        ).scalar()
+        or 0
+    )
+    label_rows = conn.execute(
+        text(
+            "SELECT label, normalized_type, count FROM raw_relation_labels "
+            "ORDER BY count DESC LIMIT :lim"
+        ),
+        {"lim": label_limit},
+    ).fetchall()
+    labels = [
+        {
+            "label": r._mapping["label"],
+            "normalized_type": r._mapping["normalized_type"],
+            "count": r._mapping["count"],
+        }
+        for r in label_rows
+    ]
+    other_count = sum(
+        r._mapping["count"]
+        for r in conn.execute(
+            text("SELECT count FROM raw_relation_labels WHERE normalized_type = 'OTHER'")
+        ).fetchall()
+    )
+    total_labels = (
+        conn.execute(text("SELECT COUNT(*) FROM raw_relation_labels")).scalar() or 0
+    )
+    return {
+        **summary,
+        "unknown_target_relations": unknown_targets,
+        "other_label_occurrences": other_count,
+        "distinct_raw_labels": total_labels,
+        "labels": labels,
+        "label_limit": label_limit,
     }
 
 

@@ -61,11 +61,17 @@ STATE_SCOPE_LABEL = "Estatal"
 # Key norm for briefing 4
 LEY_30_1992_ID = "BOE-A-1992-26318"
 
+# Documented 2015 replacement context for Ley 30/1992 (used for explanation only, never to
+# compute the blast radius). Ley 30/1992 was split into procedure (39/2015) and public-sector
+# regime (40/2015).
+LEY_39_2015_ID = "BOE-A-2015-10565"  # Procedimiento Administrativo Común
+LEY_40_2015_ID = "BOE-A-2015-10566"  # Régimen Jurídico del Sector Público
+
 # Sample ingestion: norms always attempted plus N recent from the list endpoint.
 SAMPLE_SEED_IDS = [
     LEY_30_1992_ID,
-    "BOE-A-2015-10565",  # Ley 39/2015
-    "BOE-A-2015-10566",  # Ley 40/2015
+    LEY_39_2015_ID,  # Ley 39/2015
+    LEY_40_2015_ID,  # Ley 40/2015
 ]
 SAMPLE_RECENT_COUNT = int(os.environ.get("BOE_SAMPLE_RECENT", "40"))
 

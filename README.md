@@ -136,9 +136,25 @@ All briefings are computed from the SQLite graph — never hard-coded.
 3. **Dead-law dependencies**: of all live norms in scope, the share that have a `CITES` edge to a
    repealed/annulled/expired norm; plus the top "ghost" norms most cited by live norms.
    (Amendments and repeals are deliberately excluded — citations only.)
-4. **Ley 30/1992 blast radius**: every **live** norm with a `CITES` edge to `BOE-A-1992-26318`.
+4. **Ley 30/1992 blast radius**: every **live** norm with a `CITES` edge to `BOE-A-1992-26318`,
+   enriched with a **cleanup-impact simulation**, a deterministic **replacement heuristic**
+   (Ley 39/2015 vs 40/2015, for legal review) and an explainable **priority** per norm.
 
 Default scope is **state-level** norms (ámbito "Estatal"); an `all` scope is also supported.
+
+Every briefing number is traceable to the raw BOE relations behind it via the **evidence drawer**
+(`GET /api/briefings/{key}/evidence`).
+
+## How to demo (Briefing Room, ~5 min)
+
+1. Open **Briefing Room** (default `/`).
+2. Click **Start Council Briefing** to scroll through overview → Briefings 1–4.
+3. **Overview**: corpus KPIs and four insight cards (live numbers from APIs).
+4. **Briefing 1 — Unreadable laws**: select a ranked norm; graph shows incoming amendments centred on the hub; recommendation panel updates.
+5. **Briefing 2 — Omnibus laws**: outgoing amendment subgraph + omnibus metrics.
+6. **Briefing 3 — Dead-law dependencies**: dead-law rate KPIs + ghost norm citers.
+7. **Briefing 4 — Ley 30/1992**: repeal context, cleanup-impact simulator, full worklist with filters and **Download CSV**.
+8. Click **View evidence** on any row or **Focus this briefing** for full-width mode; use **Explorer** or **Data Quality** from the top nav for secondary tools.
 
 ## API
 

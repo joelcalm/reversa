@@ -17,6 +17,8 @@ interface Props {
   layoutMode?: GraphLayoutMode | "explorer";
   showLabels?: boolean;
   onNodeClick?: (id: string) => void;
+  onResetLayout?: () => void;
+  layoutKey?: number;
 }
 
 export function GraphLegend({ note }: { note?: string }) {
@@ -33,10 +35,10 @@ export function GraphLegend({ note }: { note?: string }) {
           <span className="swatch hub" /> Hub (centre of subgraph)
         </span>
         <span className="item">
-          <span className="swatch line" style={{ background: "#d98324" }} /> AMENDS
+          <span className="swatch line" style={{ background: "#2f6fb0" }} /> AMENDS
         </span>
         <span className="item">
-          <span className="swatch line" style={{ background: "#2f6fb0" }} /> CITES
+          <span className="swatch line cites-dash" /> CITES
         </span>
         <span className="item">
           <span className="swatch line" style={{ background: "#b4453a" }} /> REPEALS
@@ -47,7 +49,15 @@ export function GraphLegend({ note }: { note?: string }) {
   );
 }
 
-function GraphToolbar({ cy, isExplorer }: { cy: cytoscape.Core | null; isExplorer?: boolean }) {
+function GraphToolbar({
+  cy,
+  isExplorer,
+  onReset,
+}: {
+  cy: cytoscape.Core | null;
+  isExplorer?: boolean;
+  onReset?: () => void;
+}) {
   if (!cy) return null;
   const zoomIn = () =>
     cy.zoom({ level: cy.zoom() * 1.25, renderedPosition: { x: cy.width() / 2, y: cy.height() / 2 } });
@@ -57,6 +67,11 @@ function GraphToolbar({ cy, isExplorer }: { cy: cytoscape.Core | null; isExplore
     if (isExplorer) {
       const focus = cy.nodes(".focus");
       cy.fit(focus.length ? focus.closedNeighborhood() : cy.nodes(), 80);
+      return;
+    }
+    const focus = cy.nodes(".focus");
+    if (focus.length) {
+      cy.fit(focus.closedNeighborhood(), 80);
       return;
     }
     const hubs = cy.nodes("[is_hub = true]");
@@ -73,6 +88,11 @@ function GraphToolbar({ cy, isExplorer }: { cy: cytoscape.Core | null; isExplore
       <button type="button" className="graph-tool-btn" onClick={fit} title="Fit to view">
         Fit
       </button>
+      {onReset && (
+        <button type="button" className="graph-tool-btn" onClick={onReset} title="Reset layout">
+          Reset
+        </button>
+      )}
     </div>
   );
 }
@@ -85,6 +105,8 @@ export default function GraphView({
   layoutMode,
   showLabels = false,
   onNodeClick,
+  onResetLayout,
+  layoutKey,
 }: Props) {
   const containerRef = useRef<HTMLDivElement>(null);
   const cyRef = useRef<cytoscape.Core | null>(null);
@@ -136,19 +158,23 @@ export default function GraphView({
       onNodeClickRef.current?.(node.id());
     });
 
-    if (isExplorer) {
-      cy.on("mouseover", "node", (evt) => {
-        evt.target.addClass("hover-label");
-      });
-      cy.on("mouseout", "node", (evt) => {
-        if (!evt.target.hasClass("focus")) evt.target.removeClass("hover-label");
-      });
-    }
+    cy.on("mouseover", "node", (evt) => {
+      const node = evt.target;
+      cy.nodes().removeClass("dimmed");
+      cy.edges().removeClass("highlighted");
+      const hood = node.closedNeighborhood();
+      cy.elements().not(hood).nodes().addClass("dimmed");
+      hood.edges().addClass("highlighted");
+      if (!node.hasClass("focus")) node.addClass("hover-label");
+    });
+    cy.on("mouseout", "node", (evt) => {
+      if (!evt.target.hasClass("focus")) evt.target.removeClass("hover-label");
+    });
 
     cyRef.current = cy;
     setCyReady(cy);
     return cy;
-  }, [data, focusId, briefingKey, layoutMode, isExplorer, showLabels]);
+  }, [data, focusId, briefingKey, layoutMode, isExplorer, showLabels, layoutKey]);
 
   useEffect(() => {
     const cy = initGraph();
@@ -186,7 +212,7 @@ export default function GraphView({
 
   return (
     <div className="graph-viewport" style={{ height }}>
-      <GraphToolbar cy={cyReady} isExplorer={isExplorer} />
+      <GraphToolbar cy={cyReady} isExplorer={isExplorer} onReset={onResetLayout} />
       <div ref={containerRef} className="graph-canvas" />
     </div>
   );

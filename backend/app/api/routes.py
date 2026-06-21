@@ -10,6 +10,8 @@ from sqlalchemy.engine import Connection
 from app.api.deps import get_conn, normalize_scope
 from app.core.config import DEFAULT_SCOPE
 from app.services import briefings as bf
+from app.services import evidence as ev
+from app.services import ley30
 
 router = APIRouter()
 
@@ -17,6 +19,14 @@ router = APIRouter()
 @router.get("/summary")
 def get_summary(conn: Connection = Depends(get_conn)) -> Dict[str, Any]:
     return bf.compute_summary(conn)
+
+
+@router.get("/data-quality")
+def get_data_quality(
+    label_limit: int = Query(50, ge=1, le=200),
+    conn: Connection = Depends(get_conn),
+) -> Dict[str, Any]:
+    return bf.compute_data_quality(conn, label_limit)
 
 
 # --- Briefings ---------------------------------------------------------------
@@ -55,6 +65,41 @@ def briefing_blast_radius(
     conn: Connection = Depends(get_conn),
 ) -> Dict[str, Any]:
     return bf.compute_blast_radius(conn, normalize_scope(scope))
+
+
+@router.get("/briefings/ley-30-1992-cleanup-impact")
+def briefing_cleanup_impact(
+    scope: str = Query(DEFAULT_SCOPE),
+    conn: Connection = Depends(get_conn),
+) -> Dict[str, Any]:
+    return ley30.compute_ley30_cleanup_impact(conn, normalize_scope(scope))
+
+
+@router.get("/briefings/{briefing_key}/evidence")
+def briefing_evidence(
+    briefing_key: str,
+    norm_id: Optional[str] = Query(None),
+    scope: str = Query(DEFAULT_SCOPE),
+    limit: int = Query(50, ge=1, le=500),
+    offset: int = Query(0, ge=0),
+    conn: Connection = Depends(get_conn),
+) -> Dict[str, Any]:
+    try:
+        return ev.get_evidence(
+            conn,
+            briefing_key,
+            norm_id=norm_id,
+            scope=normalize_scope(scope),
+            limit=limit,
+            offset=offset,
+        )
+    except KeyError:
+        raise HTTPException(
+            status_code=404,
+            detail=f"Unknown briefing key '{briefing_key}'. Valid: {list(ev.EVIDENCE_KEYS)}",
+        )
+    except ValueError as exc:
+        raise HTTPException(status_code=422, detail=str(exc))
 
 
 # --- Norms -------------------------------------------------------------------

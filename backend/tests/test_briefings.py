@@ -83,6 +83,49 @@ def test_blast_radius_includes_live_citer(db, insert_norm, insert_relation):
     assert res["ley_30_1992"]["lifecycle_status"] == "REPEALED"
 
 
+def test_omnibus_ranks_by_target_count_with_secondary_score(db, insert_norm, insert_relation):
+    insert_norm("O")
+    for tgt in ("T1", "T2", "T3"):
+        insert_norm(tgt)
+        insert_relation("O", tgt, "AMENDS")
+    # A second omnibus norm that amends fewer targets must rank below O.
+    insert_norm("O2")
+    insert_norm("T4")
+    insert_relation("O2", "T4", "AMENDS")
+
+    with db.session_scope() as conn:
+        res = bf.compute_omnibus(conn, scope="state", limit=5)
+
+    # Ranking stays by distinct amended-norm count.
+    assert res["items"][0]["id"] == "O"
+    assert res["items"][0]["target_count"] == 3
+    # Secondary indicators are present (and never override ranking).
+    assert "subject_diversity" in res["items"][0]
+    assert "department_diversity" in res["items"][0]
+    assert "omnibus_score" in res["items"][0]
+
+
+def test_blast_radius_worklist_has_heuristic_fields(db, insert_norm, insert_relation):
+    insert_norm(LEY_30_1992_ID, title="Ley 30/1992", derog="S")
+    insert_norm("L3", title="Norm about procedimiento administrativo")
+    insert_relation("L3", LEY_30_1992_ID, "CITES", label="CITA", detail="procedimiento")
+
+    with db.session_scope() as conn:
+        res = bf.compute_blast_radius(conn, scope="state")
+
+    item = res["citing_norms"][0]
+    for key in (
+        "dead_law_citations_count",
+        "can_be_fully_cleaned_by_ley30_cleanup",
+        "suggested_replacement",
+        "suggested_replacement_confidence",
+        "priority",
+        "priority_reason",
+    ):
+        assert key in item
+    assert "repeal_context" in res
+
+
 def test_scope_filtering_excludes_autonomic(db, insert_norm, insert_relation):
     insert_norm("X", scope="Estatal")
     insert_norm("AUT", scope="Autonómico")

@@ -1,19 +1,18 @@
-import { NavLink, Route, Routes } from "react-router-dom";
-import Dashboard from "./pages/Dashboard";
-import UnreadableLaws from "./pages/UnreadableLaws";
-import OmnibusLaws from "./pages/OmnibusLaws";
-import DeadLawDependencies from "./pages/DeadLawDependencies";
-import BlastRadius from "./pages/BlastRadius";
+import { NavLink, Navigate, Route, Routes } from "react-router-dom";
+import BriefingFocus from "./pages/BriefingFocus";
+import BriefingRoom from "./pages/BriefingRoom";
+import DataQuality from "./pages/DataQuality";
 import GraphExplorer from "./pages/GraphExplorer";
 
 const NAV = [
-  { to: "/", label: "Dashboard", end: true },
-  { to: "/briefings/unreadable", label: "1 · Unreadable" },
-  { to: "/briefings/omnibus", label: "2 · Omnibus" },
-  { to: "/briefings/dead-law", label: "3 · Dead law" },
-  { to: "/briefings/ley-30-1992", label: "4 · Ley 30/1992" },
-  { to: "/explorer", label: "Graph explorer" },
+  { to: "/", label: "Briefing Room", end: true },
+  { to: "/explorer", label: "Explorer" },
+  { to: "/data-quality", label: "Data Quality" },
 ];
+
+function LegacyHashRedirect({ hash }: { hash: string }) {
+  return <Navigate to={{ pathname: "/", hash }} replace />;
+}
 
 export default function App() {
   return (
@@ -37,12 +36,15 @@ export default function App() {
       <main>
         <div className="container">
           <Routes>
-            <Route path="/" element={<Dashboard />} />
-            <Route path="/briefings/unreadable" element={<UnreadableLaws />} />
-            <Route path="/briefings/omnibus" element={<OmnibusLaws />} />
-            <Route path="/briefings/dead-law" element={<DeadLawDependencies />} />
-            <Route path="/briefings/ley-30-1992" element={<BlastRadius />} />
+            <Route path="/" element={<BriefingRoom />} />
+            <Route path="/briefing/:slug" element={<BriefingFocus />} />
             <Route path="/explorer" element={<GraphExplorer />} />
+            <Route path="/data-quality" element={<DataQuality />} />
+            <Route path="/council" element={<Navigate to="/" replace />} />
+            <Route path="/briefings/unreadable" element={<Navigate to="/briefing/unreadable-laws" replace />} />
+            <Route path="/briefings/omnibus" element={<LegacyHashRedirect hash="#briefing-omnibus" />} />
+            <Route path="/briefings/dead-law" element={<Navigate to="/briefing/dead-law" replace />} />
+            <Route path="/briefings/ley-30-1992" element={<Navigate to="/briefing/ley-30-1992" replace />} />
           </Routes>
         </div>
       </main>

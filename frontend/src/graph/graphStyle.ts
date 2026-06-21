@@ -9,8 +9,8 @@ const C = {
   unknown: "#c2ccc6",
   unknownBorder: "#9aa6a0",
   label: "#1a2421",
-  amends: "#d98324",
-  cites: "#2f6fb0",
+  amends: "#2f6fb0",
+  cites: "#d98324",
   repeals: "#b4453a",
   other: "#9aa6a0",
   hubRing: "#154d32",
@@ -44,10 +44,18 @@ export const graphStylesheet: StylesheetStyle[] = [
     },
   },
   {
+    // Metric-based sizing: nodes with more relevant connections render larger.
+    selector: "node[weight]",
+    style: {
+      width: "mapData(weight, 1, 20, 28, 58)",
+      height: "mapData(weight, 1, 20, 28, 58)",
+    },
+  },
+  {
     selector: "node[is_hub = true]",
     style: {
-      width: 52,
-      height: 52,
+      width: 56,
+      height: 56,
       "border-width": 4,
       "border-color": C.hubRing,
       "font-size": "12px",
@@ -129,7 +137,25 @@ export const graphStylesheet: StylesheetStyle[] = [
   },
   {
     selector: 'edge[relation_type = "CITES"]',
-    style: { "line-color": C.cites, "target-arrow-color": C.cites, width: 2.2 },
+    style: {
+      "line-color": C.cites,
+      "target-arrow-color": C.cites,
+      width: 2.2,
+      "line-style": "dashed",
+      "line-dash-pattern": [6, 4],
+    },
+  },
+  {
+    selector: 'node[replacement = "LEY_39_2015"]',
+    style: { "background-color": "#4a8fd4", "border-color": "#2f6fb0" },
+  },
+  {
+    selector: 'node[replacement = "LEY_40_2015"]',
+    style: { "background-color": "#3d9e6a", "border-color": "#1f6b46" },
+  },
+  {
+    selector: 'node[replacement = "LEGAL_REVIEW"]',
+    style: { "background-color": "#c2ccc6", "border-color": "#9aa6a0" },
   },
   {
     selector: 'edge[relation_type = "REPEALS"]',

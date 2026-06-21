@@ -16,6 +16,9 @@ interface Props<T> {
   initialDir?: "asc" | "desc";
   /** When set, paginate the sorted rows (e.g. 20 for long worklists). */
   pageSize?: number;
+  onRowClick?: (row: T) => void;
+  rowId?: (row: T) => string;
+  selectedId?: string | null;
 }
 
 export function SortableTable<T>({
@@ -24,6 +27,9 @@ export function SortableTable<T>({
   initialSort,
   initialDir = "desc",
   pageSize,
+  onRowClick,
+  rowId,
+  selectedId,
 }: Props<T>) {
   const [sortKey, setSortKey] = useState<string | undefined>(initialSort);
   const [dir, setDir] = useState<"asc" | "desc">(initialDir);
@@ -91,15 +97,23 @@ export function SortableTable<T>({
             </tr>
           </thead>
           <tbody>
-            {visible.map((row, i) => (
-              <tr key={i}>
+            {visible.map((row, i) => {
+              const id = rowId?.(row) ?? (row as { id?: string }).id;
+              const selected = selectedId != null && id === selectedId;
+              return (
+              <tr
+                key={id ?? i}
+                className={selected ? "row-selected" : onRowClick ? "row-clickable" : undefined}
+                onClick={onRowClick ? () => onRowClick(row) : undefined}
+              >
                 {columns.map((c) => (
                   <td key={c.key} className={c.numeric ? "num" : undefined}>
                     {c.render(row)}
                   </td>
                 ))}
               </tr>
-            ))}
+            );
+            })}
           </tbody>
         </table>
       </div>

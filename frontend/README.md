@@ -25,7 +25,7 @@ src/
   api/         typed fetch client
   components/   shared UI: states, tables, KPI cards, briefing graph wrapper, hooks
   graph/        Cytoscape GraphView + stylesheet
-  pages/        Dashboard, four briefing pages, Graph explorer
+  pages/        Briefing Room, focus mode, Explorer, Data Quality
   types/        TypeScript types matching the API contract
   styles/       theme.css (CSS variables)
   utils/        CSV export
@@ -33,9 +33,9 @@ src/
 
 ## Pages
 
-- **Dashboard** — KPI cards, four briefing cards, default-scope note, data freshness.
-- **Briefing 1–4** — explanation + table/KPIs + Cytoscape subgraph.
-- **Graph explorer** — search a norm, open its neighborhood, filter by relation type, inspect nodes.
+- **Briefing Room** (`/`) — executive overview + four anchored briefing sections (graph, panel, table per briefing).
+- **Focus mode** (`/briefing/:slug`) — single briefing full-width.
+- **Explorer** — search a norm, open its neighborhood, filter by relation type, inspect nodes, view evidence.
+- **Data Quality** — ingestion audit, label normalization, unknown targets.
 
-Graph styling: live norms are green, dead norms (repealed/annulled/expired) are red, unknown nodes
-are gray; AMENDS edges are orange, CITES blue, REPEALS red.
+Graph styling: live norms are green, dead norms (repealed/annulled/expired) are red; AMENDS edges are blue, CITES orange (dashed), REPEALS red.

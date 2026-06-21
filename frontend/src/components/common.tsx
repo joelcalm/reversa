@@ -1,5 +1,6 @@
 import type { ReactNode } from "react";
-import type { LifecycleStatus, Norm } from "../types";
+import { Info, Search } from "lucide-react";
+import type { Confidence, LifecycleStatus, Norm, Priority, ReplacementSuggestion } from "../types";
 
 export function StatusPill({ status }: { status?: LifecycleStatus }) {
   const s = status ?? "UNKNOWN";
@@ -35,4 +36,50 @@ export function KpiCard({ value, label }: { value: ReactNode; label: string }) {
       <div className="kpi-label">{label}</div>
     </div>
   );
+}
+
+export function EvidenceButton({ onClick }: { onClick: () => void }) {
+  return (
+    <button type="button" className="evidence-btn" onClick={onClick} title="Trace this number back to BOE relations">
+      <Search size={13} /> View evidence
+    </button>
+  );
+}
+
+export function InfoTip({ text }: { text: ReactNode }) {
+  return (
+    <span className="info-tip" tabIndex={0}>
+      <Info size={14} />
+      <span className="info-bubble">{text}</span>
+    </span>
+  );
+}
+
+const REPLACEMENT_LABELS: Record<ReplacementSuggestion, string> = {
+  LEY_39_2015: "Ley 39/2015",
+  LEY_40_2015: "Ley 40/2015",
+  LEGAL_REVIEW: "Needs legal review",
+};
+
+export function ReplacementChip({
+  suggestion,
+  label,
+}: {
+  suggestion?: ReplacementSuggestion;
+  label?: string;
+}) {
+  if (!suggestion) return <span className="muted">—</span>;
+  const cls =
+    suggestion === "LEY_39_2015" ? "repl-39" : suggestion === "LEY_40_2015" ? "repl-40" : "repl-review";
+  return <span className={`chip ${cls}`}>{label ?? REPLACEMENT_LABELS[suggestion]}</span>;
+}
+
+export function ConfidenceChip({ confidence }: { confidence?: Confidence }) {
+  if (!confidence) return <span className="muted">—</span>;
+  return <span className={`chip conf-${confidence}`}>{confidence}</span>;
+}
+
+export function PriorityChip({ priority }: { priority?: Priority }) {
+  if (!priority) return <span className="muted">—</span>;
+  return <span className={`chip prio-${priority}`}>{priority}</span>;
 }
