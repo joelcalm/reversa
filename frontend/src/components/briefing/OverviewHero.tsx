@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { ArrowRight, Database, Search } from "lucide-react";
+import { ArrowRight, Search } from "lucide-react";
 import type { Summary } from "../../types";
 import { KpiCard } from "../common";
 import { ErrorView, Loading } from "../States";
@@ -41,9 +41,6 @@ export default function OverviewHero({ summary, insights, loading, error, onStar
         </button>
         <Link to="/explorer" className="btn secondary">
           <Search size={16} /> Explore graph
-        </Link>
-        <Link to="/data-quality" className="btn secondary">
-          <Database size={16} /> View data quality
         </Link>
       </div>
 

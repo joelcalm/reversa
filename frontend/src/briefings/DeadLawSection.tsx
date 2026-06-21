@@ -87,19 +87,22 @@ export default function DeadLawSection({ focusMode }: Props) {
             focusMode={focusMode}
             onViewEvidence={() => openEvidence(top.id, top.title)}
           >
-            <div className="kpi-grid briefing-kpis">
-              <KpiCard value={`${data.percentage}%`} label="Live norms citing dead law" />
-              <KpiCard
-                value={data.live_norms_citing_repealed_count.toLocaleString()}
-                label="Numerator"
-              />
-              <KpiCard value={data.live_norms_count.toLocaleString()} label="Denominator" />
-            </div>
+            {focusMode && (
+              <div className="kpi-grid briefing-kpis">
+                <KpiCard value={`${data.percentage}%`} label="Live norms citing dead law" />
+                <KpiCard
+                  value={data.live_norms_citing_repealed_count.toLocaleString()}
+                  label="Numerator"
+                />
+                <KpiCard value={data.live_norms_count.toLocaleString()} label="Denominator" />
+              </div>
+            )}
           </BriefingHeader>
           <BriefingBody
             chips={chips}
             selectedId={selectedId}
             onSelect={setSelectedId}
+            showTable={focusMode}
             graph={
               <InteractiveGraph
                 data={graphData}

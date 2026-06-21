@@ -213,6 +213,13 @@ export default function Ley30Section({ focusMode }: Props) {
     ? `Citers colored by suggested replacement heuristic. Full blast radius: ${total} live direct citers.`
     : undefined;
 
+  const cleanupImpact = (
+    <CleanupImpactCard
+      scope="state"
+      onEvidence={() => openEvidence(TARGET_ID, "Ley 30/1992 — live direct citers")}
+    />
+  );
+
   return (
     <BriefingSection id={BRIEFING_ANCHORS["ley-30-1992-blast-radius"]}>
       {loading && <Loading />}
@@ -232,34 +239,34 @@ export default function Ley30Section({ focusMode }: Props) {
               openEvidence(TARGET_ID, data.ley_30_1992?.title ?? "Ley 30/1992")
             }
           >
-            <div className="kpi-grid briefing-kpis">
-              <KpiCard value={total} label="Live norms citing Ley 30/1992" />
-              <KpiCard
-                value={<StatusPill status={data.ley_30_1992?.lifecycle_status} />}
-                label="Status of Ley 30/1992"
-              />
-              <KpiCard
-                value={data.citing_norms.filter((n) => n.can_be_fully_cleaned_by_ley30_cleanup).length}
-                label="Fully cleanable by cleanup"
-              />
-              <KpiCard
-                value={data.citing_norms.filter((n) => n.priority === "High").length}
-                label="High-priority norms"
-              />
-            </div>
-            {data.repeal_context && <RepealContextBlock ctx={data.repeal_context} />}
-            <CleanupImpactCard
-              scope="state"
-              onEvidence={() =>
-                openEvidence(TARGET_ID, "Ley 30/1992 — live direct citers")
-              }
-            />
+            {focusMode && (
+              <>
+                <div className="kpi-grid briefing-kpis">
+                  <KpiCard value={total} label="Live norms citing Ley 30/1992" />
+                  <KpiCard
+                    value={<StatusPill status={data.ley_30_1992?.lifecycle_status} />}
+                    label="Status of Ley 30/1992"
+                  />
+                  <KpiCard
+                    value={data.citing_norms.filter((n) => n.can_be_fully_cleaned_by_ley30_cleanup).length}
+                    label="Fully cleanable by cleanup"
+                  />
+                  <KpiCard
+                    value={data.citing_norms.filter((n) => n.priority === "High").length}
+                    label="High-priority norms"
+                  />
+                </div>
+                {data.repeal_context && <RepealContextBlock ctx={data.repeal_context} />}
+                {cleanupImpact}
+              </>
+            )}
           </BriefingHeader>
 
           <BriefingBody
             chips={[]}
             selectedId={selectedId}
             onSelect={setSelectedId}
+            showTable={focusMode}
             graph={
               <InteractiveGraph
                 data={graphData}
@@ -352,6 +359,8 @@ export default function Ley30Section({ focusMode }: Props) {
               </>
             }
           />
+
+          {!focusMode && <div className="briefing-cleanup-below">{cleanupImpact}</div>}
         </>
       )}
       <EvidenceDrawer target={evidence} scope="state" onClose={() => setEvidence(null)} />

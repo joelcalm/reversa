@@ -7,6 +7,8 @@ import GraphView, { GraphLegend } from "../graph/GraphView";
 import { Empty, ErrorView, Loading } from "../components/States";
 import type { BriefingKey, GraphData, LifecycleStatus, Norm } from "../types";
 
+const DEFAULT_EXPLORER_NORM = "BOE-A-1992-26318";
+
 function inferBriefingKey(norm: Norm): BriefingKey {
   if (norm.id === "BOE-A-1992-26318") return "ley-30-1992-blast-radius";
   if (norm.lifecycle_status && norm.lifecycle_status !== "LIVE") return "dead-law-dependencies";
@@ -68,9 +70,9 @@ function explorerLegendNote(meta?: GraphData["meta"]): string | undefined {
 }
 
 export default function GraphExplorer() {
-  const [query, setQuery] = useState("");
+  const [query, setQuery] = useState(DEFAULT_EXPLORER_NORM);
   const [results, setResults] = useState<Norm[]>([]);
-  const [selectedId, setSelectedId] = useState<string | null>(null);
+  const [selectedId, setSelectedId] = useState<string | null>(DEFAULT_EXPLORER_NORM);
   const [relationType, setRelationType] = useState("");
   const [direction, setDirection] = useState<"all" | "incoming" | "outgoing">("all");
   const [limit, setLimit] = useState(80);

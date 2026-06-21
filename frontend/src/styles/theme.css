@@ -1195,6 +1195,9 @@ footer.app-footer {
 .briefing-focus {
   padding-bottom: 48px;
 }
+.briefing-cleanup-below {
+  margin-top: 16px;
+}
 .data tr.row-clickable {
   cursor: pointer;
 }

@@ -88,6 +88,7 @@ export default function UnreadableSection({ focusMode }: Props) {
             chips={chips}
             selectedId={selectedId}
             onSelect={setSelectedId}
+            showTable={focusMode}
             graph={
               <InteractiveGraph
                 data={graphData}

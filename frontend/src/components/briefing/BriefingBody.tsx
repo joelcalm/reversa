@@ -11,10 +11,11 @@ interface Props {
   onSelect: (id: string) => void;
   graph: ReactNode;
   panel: ReactNode;
-  table: ReactNode;
+  table?: ReactNode;
+  showTable?: boolean;
 }
 
-export default function BriefingBody({ chips, selectedId, onSelect, graph, panel, table }: Props) {
+export default function BriefingBody({ chips, selectedId, onSelect, graph, panel, table, showTable }: Props) {
   return (
     <>
       {chips.length > 0 && (
@@ -35,7 +36,7 @@ export default function BriefingBody({ chips, selectedId, onSelect, graph, panel
         <div className="briefing-graph-col">{graph}</div>
         <div className="briefing-panel-col">{panel}</div>
       </div>
-      <div className="briefing-table-wrap">{table}</div>
+      {showTable && table && <div className="briefing-table-wrap">{table}</div>}
     </>
   );
 }

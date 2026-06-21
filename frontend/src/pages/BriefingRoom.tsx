@@ -10,13 +10,7 @@ import UnreadableSection from "../briefings/UnreadableSection";
 import { BRIEFING_ANCHORS } from "../briefings/keys";
 import type { OverviewInsights } from "../components/briefing/overviewTypes";
 
-const TOUR_ANCHORS = [
-  "overview",
-  BRIEFING_ANCHORS["unreadable-laws"],
-  BRIEFING_ANCHORS["omnibus-laws"],
-  BRIEFING_ANCHORS["dead-law-dependencies"],
-  BRIEFING_ANCHORS["ley-30-1992-blast-radius"],
-];
+const FIRST_BRIEFING_ANCHOR = BRIEFING_ANCHORS["unreadable-laws"];
 
 export default function BriefingRoom() {
   const { data: summary, loading: summaryLoading, error: summaryError } = useFetch(
@@ -65,14 +59,8 @@ export default function BriefingRoom() {
   }, [unreadable, omnibus, deadLaw, blast]);
 
   const startCouncilBriefing = useCallback(() => {
-    let i = 0;
-    const step = () => {
-      const el = document.getElementById(TOUR_ANCHORS[i]);
-      if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
-      i += 1;
-      if (i < TOUR_ANCHORS.length) window.setTimeout(step, 900);
-    };
-    step();
+    const el = document.getElementById(FIRST_BRIEFING_ANCHOR);
+    if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
   }, []);
 
   useEffect(() => {
