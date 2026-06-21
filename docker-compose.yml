@@ -1,12 +1,12 @@
-# Optional containerized run. The SQLite DB lives in ./data so it persists and can be
-# regenerated. Run ingestion once on the host (make ingest-sample && make compute) or
-# exec into the backend container to populate the database before using the UI.
+# Optional containerized run.
+# Local: mount ./data and skip download. Render: render-start.sh downloads from BOE_DB_URL.
 services:
   backend:
     build: ./backend
     container_name: boe-backend
     environment:
       BOE_DB_PATH: /data/processed/boe_graph.db
+      BOE_DB_SKIP_DOWNLOAD: "1"
     volumes:
       - ./data:/data
     ports:

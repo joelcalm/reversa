@@ -41,7 +41,10 @@ uv pip install --python .venv/bin/python -e ".[dev]"
 
 | Var | Default | Purpose |
 | --- | --- | --- |
-| `BOE_DB_PATH` | `data/processed/boe_graph.db` | SQLite path (tests set a temp path) |
+| `BOE_DB_PATH` | `data/processed/boe_graph.db` | SQLite path (Render: `/tmp/boe_graph.db`) |
+| `BOE_DB_URL` | GitHub release asset | Download URL used by `scripts/render-start.sh` |
+| `BOE_DB_SKIP_DOWNLOAD` | unset | Set `1` to skip download (local docker-compose volume) |
+| `BOE_SKIP_INIT_DB` | unset | Set `1` after downloading a pre-built DB (auto-set by render-start) |
 | `BOE_API_BASE` | official BOE API | API base URL |
 | `BOE_DELAY` | `0.4` | polite delay between live requests (s) |
 | `BOE_TIMEOUT` | `30` | request timeout (s) |

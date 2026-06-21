@@ -18,7 +18,21 @@ def test_unreadable_counts_distinct_amenders(db, insert_norm, insert_relation):
     assert top["amending_count"] == 3
 
 
-def test_omnibus_counts_distinct_targets(db, insert_norm, insert_relation):
+def test_neighborhood_dedupes_mirror_edges(db, insert_norm, insert_relation):
+    insert_norm("A")
+    insert_norm("B")
+    insert_relation("A", "B", "AMENDS", direction="anteriores", detail="from A")
+    insert_relation("A", "B", "AMENDS", direction="posteriores", detail="from B page")
+
+    with db.session_scope() as conn:
+        g = bf.build_neighborhood(conn, "B", limit=20)
+
+    assert len(g["edges"]) == 1
+    assert g["meta"]["edges_deduplicated"] == 1
+    hub = next(n for n in g["nodes"] if n["data"]["id"] == "B")
+    assert hub["data"]["is_hub"] is True
+
+
     insert_norm("O")
     for tgt in ("T1", "T2", "T3"):
         insert_norm(tgt)

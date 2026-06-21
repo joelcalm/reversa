@@ -18,13 +18,25 @@ PROCESSED_DIR = DATA_DIR / "processed"
 SAMPLES_DIR = DATA_DIR / "samples"
 FIXTURES_DIR = BACKEND_DIR / "tests" / "fixtures"
 
-# SQLite database location (override with BOE_DB_PATH, e.g. for tests).
+# SQLite database location (override with BOE_DB_PATH, e.g. for tests or Render).
 DEFAULT_DB_PATH = PROCESSED_DIR / "boe_graph.db"
+
+# Default public release asset (override at runtime with BOE_DB_URL in render-start.sh).
+DEFAULT_DB_DOWNLOAD_URL = (
+    "https://github.com/joelcalm/reversa/releases/download/db-v1/boe_graph.db"
+)
 
 
 def get_db_path() -> Path:
+    """Return the SQLite file path. Set BOE_DB_PATH in production (e.g. /tmp/boe_graph.db on Render)."""
     env = os.environ.get("BOE_DB_PATH")
     return Path(env) if env else DEFAULT_DB_PATH
+
+
+def is_prebuilt_db() -> bool:
+    """True when serving a pre-populated DB (skip schema bootstrap on startup)."""
+    flag = os.environ.get("BOE_SKIP_INIT_DB", "").lower()
+    return flag in ("1", "true", "yes")
 
 
 def get_database_url() -> str:

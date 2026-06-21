@@ -1,20 +1,26 @@
 """SQLite engine creation and schema bootstrap."""
 from __future__ import annotations
 
+import os
 from contextlib import contextmanager
 from typing import Iterator, Optional
 
 from sqlalchemy import Engine, create_engine, event
 from sqlalchemy.engine import Connection
 
-from app.core.config import ensure_directories, get_database_url
+from app.core.config import ensure_directories, get_database_url, get_db_path
 from app.models.tables import metadata
 
 _engine: Optional[Engine] = None
 
 
 def _build_engine() -> Engine:
-    ensure_directories()
+    db_path = get_db_path()
+    custom_path = os.environ.get("BOE_DB_PATH")
+    if custom_path:
+        db_path.parent.mkdir(parents=True, exist_ok=True)
+    else:
+        ensure_directories()
     # timeout: wait up to 30s if another process (e.g. uvicorn) has the DB locked.
     engine = create_engine(
         get_database_url(),

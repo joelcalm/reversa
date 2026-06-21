@@ -155,10 +155,62 @@ See [`docs/api.md`](docs/api.md). Interactive docs are available at `/docs` when
 
 ## Deployment notes
 
-- Local: `make dev`. Containerized: `docker compose up --build` (populate the DB first via
-  `make ingest-sample && make compute`, since the DB lives in the mounted `./data` volume).
-- No API key or secrets are required. There is no `.env` with secrets.
-- The SQLite DB and raw cache are git-ignored; only small fixtures are committed.
+### Local
+
+- `make dev` — backend on `:8088`, frontend on `:5173`.
+- `docker compose up --build` — uses `./data/processed/boe_graph.db` from the mounted volume
+  (run `make ingest-sample && make compute` first if the DB is empty).
+
+### Render (backend)
+
+The backend Docker image downloads the SQLite file on first start from a GitHub release asset
+(not committed to git):
+
+```text
+https://github.com/joelcalm/reversa/releases/download/db-v1/boe_graph.db
+```
+
+**Render settings:**
+
+| Setting | Value |
+| --- | --- |
+| Root directory | `backend` |
+| Runtime | Docker |
+| Health check | `/health` |
+
+**Environment variables (optional overrides):**
+
+| Variable | Default | Purpose |
+| --- | --- | --- |
+| `BOE_DB_PATH` | `/tmp/boe_graph.db` | Where to store/open the SQLite file |
+| `BOE_DB_URL` | GitHub release URL above | Download source on first boot |
+| `BOE_DB_SKIP_DOWNLOAD` | unset | Set `1` to skip download (e.g. attached disk) |
+| `PORT` | `8000` | Set automatically by Render |
+
+Entrypoint: `scripts/render-start.sh` — downloads the DB if missing, then starts uvicorn.
+
+**Test the Docker image locally (download path):**
+
+```bash
+docker build -t reversa-backend ./backend
+docker run --rm -p 8088:8000 reversa-backend
+curl http://127.0.0.1:8088/health
+curl http://127.0.0.1:8088/api/summary
+```
+
+**Test with your local DB (no download):**
+
+```bash
+docker compose up --build backend
+```
+
+### Vercel (frontend)
+
+Deploy the `frontend/` directory. Add a `vercel.json` rewrite so `/api/*` proxies to your Render
+backend URL (see `frontend/vercel.json.example`).
+
+- No API key or secrets are required for the BOE API.
+- The SQLite DB and raw cache are git-ignored; the production DB is hosted as a GitHub release asset.
 
 ## OpenSpec artifacts
 

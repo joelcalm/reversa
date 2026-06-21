@@ -15,6 +15,7 @@ interface Props {
   height?: number;
   briefingKey?: string;
   layoutMode?: GraphLayoutMode | "explorer";
+  showLabels?: boolean;
   onNodeClick?: (id: string) => void;
 }
 
@@ -46,12 +47,19 @@ export function GraphLegend({ note }: { note?: string }) {
   );
 }
 
-function GraphToolbar({ cy }: { cy: cytoscape.Core | null }) {
+function GraphToolbar({ cy, isExplorer }: { cy: cytoscape.Core | null; isExplorer?: boolean }) {
   if (!cy) return null;
-  const zoomIn = () => cy.zoom({ level: cy.zoom() * 1.25, renderedPosition: { x: cy.width() / 2, y: cy.height() / 2 } });
-  const zoomOut = () => cy.zoom({ level: cy.zoom() / 1.25, renderedPosition: { x: cy.width() / 2, y: cy.height() / 2 } });
+  const zoomIn = () =>
+    cy.zoom({ level: cy.zoom() * 1.25, renderedPosition: { x: cy.width() / 2, y: cy.height() / 2 } });
+  const zoomOut = () =>
+    cy.zoom({ level: cy.zoom() / 1.25, renderedPosition: { x: cy.width() / 2, y: cy.height() / 2 } });
   const fit = () => {
-    const hubs = cy.nodes('[is_hub = true]');
+    if (isExplorer) {
+      const focus = cy.nodes(".focus");
+      cy.fit(focus.length ? focus.closedNeighborhood() : cy.nodes(), 80);
+      return;
+    }
+    const hubs = cy.nodes("[is_hub = true]");
     cy.fit(hubs.length ? hubs : cy.nodes(), 72);
   };
   return (
@@ -75,6 +83,7 @@ export default function GraphView({
   height = 560,
   briefingKey,
   layoutMode,
+  showLabels = false,
   onNodeClick,
 }: Props) {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -82,6 +91,7 @@ export default function GraphView({
   const [cyReady, setCyReady] = useState<cytoscape.Core | null>(null);
   const onNodeClickRef = useRef(onNodeClick);
   onNodeClickRef.current = onNodeClick;
+  const isExplorer = layoutMode === "explorer";
 
   const initGraph = useCallback(() => {
     if (!containerRef.current) return;
@@ -89,7 +99,10 @@ export default function GraphView({
       container: containerRef.current,
       elements: {
         nodes: data.nodes.map((n) => ({ data: { ...n.data } })),
-        edges: data.edges.map((e) => ({ data: { ...e.data } })),
+        edges: data.edges.map((e) => ({
+          data: { ...e.data },
+          classes: isExplorer ? "explorer-edge" : undefined,
+        })),
       },
       style: graphStylesheet,
       wheelSensitivity: 0.18,
@@ -98,17 +111,19 @@ export default function GraphView({
       boxSelectionEnabled: false,
     });
 
-    if (layoutMode === "explorer" || !briefingKey) {
-      runExplorerLayout(cy);
-    } else {
+    if (isExplorer) {
+      runExplorerLayout(cy, focusId);
+      if (showLabels) cy.nodes(".peripheral").addClass("labeled");
+    } else if (briefingKey) {
       const mode = layoutMode ?? layoutModeForBriefing(briefingKey);
       runBriefingLayout(cy, mode);
-    }
-
-    if (focusId) {
-      const focus = cy.getElementById(focusId);
-      focus.addClass("focus");
-      cy.fit(focus.closedNeighborhood().nodes(), 80);
+      if (focusId) {
+        const focus = cy.getElementById(focusId);
+        focus.addClass("focus");
+        cy.fit(focus.closedNeighborhood().nodes(), 80);
+      }
+    } else {
+      runExplorerLayout(cy, focusId);
     }
 
     cy.on("tap", "node", (evt) => {
@@ -121,10 +136,19 @@ export default function GraphView({
       onNodeClickRef.current?.(node.id());
     });
 
+    if (isExplorer) {
+      cy.on("mouseover", "node", (evt) => {
+        evt.target.addClass("hover-label");
+      });
+      cy.on("mouseout", "node", (evt) => {
+        if (!evt.target.hasClass("focus")) evt.target.removeClass("hover-label");
+      });
+    }
+
     cyRef.current = cy;
     setCyReady(cy);
     return cy;
-  }, [data, focusId, briefingKey, layoutMode]);
+  }, [data, focusId, briefingKey, layoutMode, isExplorer, showLabels]);
 
   useEffect(() => {
     const cy = initGraph();
@@ -135,22 +159,34 @@ export default function GraphView({
     };
   }, [initGraph]);
 
-  // Resize when the container changes (e.g. window resize).
+  useEffect(() => {
+    const cy = cyRef.current;
+    if (!cy || !isExplorer) return;
+    cy.nodes(".peripheral").removeClass("labeled");
+    if (showLabels) cy.nodes(".peripheral").addClass("labeled");
+  }, [showLabels, isExplorer]);
+
   useEffect(() => {
     const el = containerRef.current;
     if (!el) return;
     const ro = new ResizeObserver(() => {
       cyRef.current?.resize();
-      const hubs = cyRef.current?.nodes('[is_hub = true]');
-      if (hubs && hubs.length) cyRef.current?.fit(hubs, 72);
+      if (!cyRef.current) return;
+      if (isExplorer) {
+        const focus = cyRef.current.nodes(".focus");
+        cyRef.current.fit(focus.length ? focus.closedNeighborhood() : cyRef.current.nodes(), 80);
+      } else {
+        const hubs = cyRef.current.nodes("[is_hub = true]");
+        if (hubs.length) cyRef.current.fit(hubs, 72);
+      }
     });
     ro.observe(el);
     return () => ro.disconnect();
-  }, []);
+  }, [isExplorer]);
 
   return (
     <div className="graph-viewport" style={{ height }}>
-      <GraphToolbar cy={cyReady} />
+      <GraphToolbar cy={cyReady} isExplorer={isExplorer} />
       <div ref={containerRef} className="graph-canvas" />
     </div>
   );

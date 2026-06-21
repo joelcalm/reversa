@@ -72,16 +72,37 @@ export const graphStylesheet: StylesheetStyle[] = [
     style: { "background-color": C.dead, "border-color": C.deadBorder },
   },
   {
+    selector: "node.peripheral",
+    style: {
+      width: 24,
+      height: 24,
+      "font-size": "10px",
+      "text-opacity": 0,
+      "text-max-width": "96px",
+      "z-index": 1,
+    },
+  },
+  {
+    selector: "node.peripheral.labeled, node.peripheral.hover-label",
+    style: {
+      "text-opacity": 1,
+      "z-index": 50,
+    },
+  },
+  {
     selector: "node.focus",
     style: {
       "border-width": 5,
       "border-color": "#0d3d28",
-      width: 58,
-      height: 58,
-      "font-size": "13px",
+      width: 56,
+      height: 56,
+      "font-size": "12px",
       "font-weight": 700,
+      "text-opacity": 1,
+      "text-max-width": "140px",
       "overlay-opacity": 0.08,
       "overlay-color": C.live,
+      "z-index": 100,
     },
   },
   {
@@ -115,8 +136,15 @@ export const graphStylesheet: StylesheetStyle[] = [
     style: { "line-color": C.repeals, "target-arrow-color": C.repeals, width: 2.2 },
   },
   {
-    selector: "edge.highlighted",
+    selector: "edge.highlighted, edge.explorer-edge.highlighted",
     style: { opacity: 1, width: 3 },
+  },
+  {
+    selector: "edge.explorer-edge",
+    style: {
+      "curve-style": "bezier",
+      opacity: 0.55,
+    },
   },
   {
     selector: "node.dimmed",

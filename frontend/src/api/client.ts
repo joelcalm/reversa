@@ -53,9 +53,13 @@ export const api = {
 
   norm: (id: string) => getJSON<Norm>(`/api/norms/${encodeURIComponent(id)}`),
 
-  neighborhood: (id: string, relationType?: string, limit = 200) => {
-    const q = new URLSearchParams({ limit: String(limit) });
-    if (relationType) q.set("relation_type", relationType);
+  neighborhood: (
+    id: string,
+    opts?: { relationType?: string; direction?: string; limit?: number },
+  ) => {
+    const q = new URLSearchParams({ limit: String(opts?.limit ?? 80) });
+    if (opts?.relationType) q.set("relation_type", opts.relationType);
+    if (opts?.direction && opts.direction !== "all") q.set("direction", opts.direction);
     return getJSON<GraphData>(`/api/norms/${encodeURIComponent(id)}/neighborhood?${q.toString()}`);
   },
 };

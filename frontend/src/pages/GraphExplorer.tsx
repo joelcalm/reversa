@@ -6,11 +6,33 @@ import GraphView, { GraphLegend } from "../graph/GraphView";
 import { Empty, ErrorView, Loading } from "../components/States";
 import type { GraphData, Norm } from "../types";
 
+function explorerLegendNote(meta?: GraphData["meta"]): string | undefined {
+  if (!meta) return undefined;
+  const bits: string[] = [];
+  if (meta.node_count != null && meta.edge_count != null) {
+    bits.push(`${meta.node_count} norms, ${meta.edge_count} relations shown`);
+  }
+  if (meta.incoming_total != null && meta.outgoing_total != null) {
+    bits.push(`${meta.incoming_total} incoming / ${meta.outgoing_total} outgoing in corpus`);
+  }
+  if (meta.edges_deduplicated) {
+    bits.push(`${meta.edges_deduplicated} duplicate BOE mirror edges removed`);
+  }
+  if (meta.truncated) {
+    bits.push("sample capped — raise limit or filter by relation type");
+  }
+  bits.push("Hover nodes for labels; left arc = incoming, right = outgoing");
+  return bits.join(". ") + ".";
+}
+
 export default function GraphExplorer() {
   const [query, setQuery] = useState("");
   const [results, setResults] = useState<Norm[]>([]);
   const [selectedId, setSelectedId] = useState<string | null>(null);
   const [relationType, setRelationType] = useState("");
+  const [direction, setDirection] = useState<"all" | "incoming" | "outgoing">("all");
+  const [limit, setLimit] = useState(80);
+  const [showLabels, setShowLabels] = useState(false);
   const [graph, setGraph] = useState<GraphData | null>(null);
   const [detail, setDetail] = useState<Norm | null>(null);
   const [loading, setLoading] = useState(false);
@@ -33,7 +55,7 @@ export default function GraphExplorer() {
     setError(null);
     try {
       const [g, d] = await Promise.all([
-        api.neighborhood(id, relationType || undefined, 200),
+        api.neighborhood(id, { relationType: relationType || undefined, direction, limit }),
         api.norm(id),
       ]);
       setGraph(g);
@@ -45,11 +67,10 @@ export default function GraphExplorer() {
     }
   };
 
-  // Reload neighborhood when the relation-type filter changes.
   useEffect(() => {
     if (selectedId) openNorm(selectedId);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [relationType]);
+  }, [relationType, direction, limit]);
 
   return (
     <div>
@@ -58,8 +79,8 @@ export default function GraphExplorer() {
       </div>
       <p className="explanation">
         Search a norm by title or BOE ID, then explore its neighborhood of amendments, repeals and
-        citations. Click any node to inspect it. Subgraphs are built on the server so the full graph
-        is never rendered at once.
+        citations. The selected norm sits at the centre; incoming relations on the left, outgoing on
+        the right. Hover nodes for labels, or toggle “Show all labels” when you need them.
       </p>
 
       <div className="toolbar">
@@ -86,6 +107,35 @@ export default function GraphExplorer() {
           <option value="CITES">CITES</option>
           <option value="OTHER">OTHER</option>
         </select>
+        <select
+          className="input"
+          value={direction}
+          onChange={(e) => setDirection(e.target.value as typeof direction)}
+          title="Incoming vs outgoing"
+        >
+          <option value="all">Both directions</option>
+          <option value="incoming">Incoming only</option>
+          <option value="outgoing">Outgoing only</option>
+        </select>
+        <select
+          className="input"
+          value={limit}
+          onChange={(e) => setLimit(Number(e.target.value))}
+          title="Max relations to load"
+        >
+          <option value={40}>40 relations</option>
+          <option value={80}>80 relations</option>
+          <option value={120}>120 relations</option>
+          <option value={200}>200 relations</option>
+        </select>
+        <label className="explorer-toggle">
+          <input
+            type="checkbox"
+            checked={showLabels}
+            onChange={(e) => setShowLabels(e.target.checked)}
+          />
+          Show all labels
+        </label>
       </div>
 
       {results.length > 0 && (
@@ -119,8 +169,15 @@ export default function GraphExplorer() {
           )}
           {!loading && graph && graph.nodes.length > 0 && (
             <>
-              <GraphView data={graph} focusId={selectedId ?? undefined} layoutMode="explorer" onNodeClick={openNorm} height={520} />
-              <GraphLegend />
+              <GraphView
+                data={graph}
+                focusId={selectedId ?? undefined}
+                layoutMode="explorer"
+                showLabels={showLabels}
+                onNodeClick={openNorm}
+                height={640}
+              />
+              <GraphLegend note={explorerLegendNote(graph.meta)} />
             </>
           )}
         </div>

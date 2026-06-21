@@ -107,6 +107,12 @@ export interface GraphData {
     truncated?: boolean;
     max_edges_per_hub?: number;
     total_edges_available?: number;
+    focus_id?: string;
+    incoming_total?: number;
+    outgoing_total?: number;
+    edges_deduplicated?: number;
+    direction?: string;
+    limit?: number;
   };
 }
 

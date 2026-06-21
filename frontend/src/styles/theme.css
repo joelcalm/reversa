@@ -393,13 +393,27 @@ table.data td.num {
 .legend-note {
   font-size: 12px;
   color: var(--color-text-muted);
-  max-width: 420px;
+  max-width: 640px;
   text-align: right;
+  line-height: 1.45;
 }
 .legend .item {
   display: inline-flex;
   align-items: center;
   gap: 6px;
+}
+.explorer-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  color: var(--color-text-muted);
+  white-space: nowrap;
+  cursor: pointer;
+  user-select: none;
+}
+.explorer-toggle input {
+  accent-color: var(--color-green);
 }
 .legend .swatch {
   width: 12px;

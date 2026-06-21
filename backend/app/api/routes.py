@@ -149,33 +149,22 @@ def norm_neighborhood(
     norm_id: str,
     depth: int = Query(1, ge=1, le=2),
     relation_type: Optional[str] = Query(None),
-    limit: int = Query(200, ge=1, le=1000),
+    direction: str = Query("all"),
+    limit: int = Query(80, ge=1, le=400),
     conn: Connection = Depends(get_conn),
 ) -> Dict[str, Any]:
-    type_clause = ""
-    params: Dict[str, Any] = {"id": norm_id, "limit": limit}
-    if relation_type:
-        type_clause = " AND relation_type = :rtype"
-        params["rtype"] = relation_type.upper()
-
-    rows = conn.execute(
-        text(
-            "SELECT id, source_norm_id, target_norm_id, relation_type, relation_label_raw, "
-            "relation_detail_raw FROM relations "
-            f"WHERE (source_norm_id = :id OR target_norm_id = :id){type_clause} "
-            "LIMIT :limit"
-        ),
-        params,
-    ).fetchall()
-
-    node_ids = {norm_id}
-    for r in rows:
-        node_ids.add(r._mapping["source_norm_id"])
-        node_ids.add(r._mapping["target_norm_id"])
-    norms_map = bf._fetch_norms_map(conn, list(node_ids))
-    nodes = [bf._node(norms_map.get(nid), nid) for nid in node_ids]
-    edges = [bf._edge(r) for r in rows]
-    return {"nodes": nodes, "edges": edges}
+    if direction not in ("all", "incoming", "outgoing"):
+        raise HTTPException(status_code=422, detail="direction must be all, incoming, or outgoing")
+    result = bf.build_neighborhood(
+        conn,
+        norm_id,
+        relation_type=relation_type,
+        direction=direction,
+        limit=limit,
+    )
+    if result.get("error") == "not_found":
+        raise HTTPException(status_code=404, detail=f"Norm {norm_id} not found")
+    return result
 
 
 # --- Graph -------------------------------------------------------------------

@@ -166,6 +166,125 @@ def _edge(row: Any) -> dict:
     }
 
 
+_RELATION_ROW_FIELDS = (
+    "id, source_norm_id, target_norm_id, relation_type, relation_label_raw, "
+    "relation_detail_raw, api_direction"
+)
+
+
+def _dedupe_relation_rows(rows: Sequence[Any]) -> tuple[List[Any], int]:
+    """Collapse anteriores/posteriores mirror pairs to one row per logical edge."""
+    seen: Dict[tuple, Any] = {}
+    order: List[tuple] = []
+    for r in rows:
+        m = r._mapping
+        key = (m["source_norm_id"], m["target_norm_id"], m["relation_type"])
+        if key in seen:
+            prev = seen[key]._mapping
+            if prev.get("api_direction") == "posteriores" and m.get("api_direction") == "anteriores":
+                seen[key] = r
+            continue
+        seen[key] = r
+        order.append(key)
+    deduped = [seen[k] for k in order]
+    return deduped, len(rows) - len(deduped)
+
+
+def build_neighborhood(
+    conn,
+    norm_id: str,
+    *,
+    relation_type: Optional[str] = None,
+    direction: str = "all",
+    limit: int = 120,
+) -> Dict[str, Any]:
+    """Ego-network around a norm: balanced in/out fetch, mirror-edge dedupe, focus marked as hub."""
+    exists = conn.execute(
+        text("SELECT 1 FROM norms WHERE id = :id"), {"id": norm_id}
+    ).fetchone()
+    if not exists:
+        return {"error": "not_found"}
+
+    type_clause = ""
+    params: Dict[str, Any] = {"id": norm_id}
+    if relation_type:
+        type_clause = " AND relation_type = :rtype"
+        params["rtype"] = relation_type.upper()
+
+    def _count(where_col: str) -> int:
+        return (
+            conn.execute(
+                text(
+                    f"SELECT COUNT(*) FROM relations WHERE {where_col} = :id{type_clause}"
+                ),
+                params,
+            ).scalar()
+            or 0
+        )
+
+    total_in = _count("target_norm_id")
+    total_out = _count("source_norm_id")
+
+    half = max(limit // 2, 1)
+    fetch_limit = limit
+    if direction == "all":
+        fetch_limit = half
+
+    def _fetch(where_col: str, lim: int) -> List[Any]:
+        return list(
+            conn.execute(
+                text(
+                    f"SELECT {_RELATION_ROW_FIELDS} FROM relations "
+                    f"WHERE {where_col} = :id{type_clause} ORDER BY id LIMIT :lim"
+                ),
+                {**params, "lim": lim},
+            ).fetchall()
+        )
+
+    raw_rows: List[Any] = []
+    truncated = False
+    in_rows: List[Any] = []
+    out_rows: List[Any] = []
+    if direction in ("all", "incoming"):
+        in_rows = _fetch("target_norm_id", fetch_limit if direction == "incoming" else half)
+        raw_rows.extend(in_rows)
+        if direction == "incoming" and len(in_rows) >= fetch_limit and total_in > fetch_limit:
+            truncated = True
+    if direction in ("all", "outgoing"):
+        out_rows = _fetch("source_norm_id", fetch_limit if direction == "outgoing" else half)
+        raw_rows.extend(out_rows)
+        if direction == "outgoing" and len(out_rows) >= fetch_limit and total_out > fetch_limit:
+            truncated = True
+    if direction == "all":
+        truncated = (total_in > half and len(in_rows) >= half) or (total_out > half and len(out_rows) >= half)
+
+    rows, deduped_count = _dedupe_relation_rows(raw_rows)
+    node_ids = {norm_id}
+    for r in rows:
+        node_ids.add(r._mapping["source_norm_id"])
+        node_ids.add(r._mapping["target_norm_id"])
+
+    norms_map = _fetch_norms_map(conn, list(node_ids))
+    nodes = [_node(norms_map.get(nid), nid, hub=(nid == norm_id)) for nid in node_ids]
+    edges = [_edge(r) for r in rows]
+
+    return {
+        "nodes": nodes,
+        "edges": edges,
+        "meta": {
+            "focus_id": norm_id,
+            "node_count": len(nodes),
+            "edge_count": len(edges),
+            "incoming_total": total_in,
+            "outgoing_total": total_out,
+            "edges_deduplicated": deduped_count,
+            "truncated": truncated,
+            "direction": direction,
+            "limit": limit,
+        },
+    }
+
+
 # --- Briefing 1: unreadable laws --------------------------------------------
 
 

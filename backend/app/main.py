@@ -6,6 +6,7 @@ from fastapi.middleware.cors import CORSMiddleware
 
 from app import __version__
 from app.api.routes import router as api_router
+from app.core.config import is_prebuilt_db
 from app.db.session import init_db
 
 app = FastAPI(
@@ -28,7 +29,9 @@ app.add_middleware(
 
 @app.on_event("startup")
 def _startup() -> None:
-    # Ensure the schema exists even if ingestion has not run yet.
+    # Pre-built release DBs already have schema + data; skip CREATE TABLE on Render.
+    if is_prebuilt_db():
+        return
     init_db()
 
 
