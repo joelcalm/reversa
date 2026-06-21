@@ -13,7 +13,10 @@ const C = {
   cites: "#2f6fb0",
   repeals: "#b4453a",
   other: "#9aa6a0",
+  hubRing: "#154d32",
 };
+
+const FONT = "Satoshi, system-ui, sans-serif";
 
 export const graphStylesheet: StylesheetStyle[] = [
   {
@@ -24,14 +27,32 @@ export const graphStylesheet: StylesheetStyle[] = [
       "border-width": 2,
       label: "data(label)",
       color: C.label,
-      "font-size": "9px",
+      "font-family": FONT,
+      "font-size": "11px",
+      "font-weight": 500,
       "text-valign": "bottom",
       "text-halign": "center",
-      "text-margin-y": 4,
-      "text-max-width": "90px",
+      "text-margin-y": 6,
+      "text-max-width": "110px",
       "text-wrap": "ellipsis",
-      width: 26,
-      height: 26,
+      "text-background-color": "#ffffff",
+      "text-background-opacity": 0.92,
+      "text-background-padding": "2px",
+      "text-background-shape": "roundrectangle",
+      width: 34,
+      height: 34,
+    },
+  },
+  {
+    selector: "node[is_hub = true]",
+    style: {
+      width: 52,
+      height: 52,
+      "border-width": 4,
+      "border-color": C.hubRing,
+      "font-size": "12px",
+      "font-weight": 700,
+      "z-index": 10,
     },
   },
   {
@@ -53,40 +74,52 @@ export const graphStylesheet: StylesheetStyle[] = [
   {
     selector: "node.focus",
     style: {
-      "border-width": 4,
-      "border-color": "#154d32",
-      width: 38,
-      height: 38,
-      "font-size": "11px",
-      "font-weight": "bold",
+      "border-width": 5,
+      "border-color": "#0d3d28",
+      width: 58,
+      height: 58,
+      "font-size": "13px",
+      "font-weight": 700,
+      "overlay-opacity": 0.08,
+      "overlay-color": C.live,
     },
   },
   {
     selector: "node:selected",
-    style: { "border-width": 4, "border-color": "#154d32" },
+    style: { "border-width": 5, "border-color": "#0d3d28" },
   },
   {
     selector: "edge",
     style: {
-      width: 1.6,
+      width: 2,
       "line-color": C.other,
       "target-arrow-color": C.other,
       "target-arrow-shape": "triangle",
-      "arrow-scale": 0.9,
-      "curve-style": "bezier",
-      opacity: 0.85,
+      "arrow-scale": 1,
+      "curve-style": "unbundled-bezier",
+      "control-point-distances": 40,
+      "control-point-weights": 0.4,
+      opacity: 0.75,
     },
   },
   {
     selector: 'edge[relation_type = "AMENDS"]',
-    style: { "line-color": C.amends, "target-arrow-color": C.amends },
+    style: { "line-color": C.amends, "target-arrow-color": C.amends, width: 2.2 },
   },
   {
     selector: 'edge[relation_type = "CITES"]',
-    style: { "line-color": C.cites, "target-arrow-color": C.cites },
+    style: { "line-color": C.cites, "target-arrow-color": C.cites, width: 2.2 },
   },
   {
     selector: 'edge[relation_type = "REPEALS"]',
-    style: { "line-color": C.repeals, "target-arrow-color": C.repeals },
+    style: { "line-color": C.repeals, "target-arrow-color": C.repeals, width: 2.2 },
+  },
+  {
+    selector: "edge.highlighted",
+    style: { opacity: 1, width: 3 },
+  },
+  {
+    selector: "node.dimmed",
+    style: { opacity: 0.35 },
   },
 ];

@@ -33,7 +33,7 @@ uv pip install --python .venv/bin/python -e ".[dev]"
 .venv/bin/python -m scripts.ingest full             # full corpus (slow, resumable)
 .venv/bin/python -m scripts.compute_briefings --scope state
 .venv/bin/python -m scripts.export_sample           # refresh fixtures from live API
-.venv/bin/uvicorn app.main:app --reload --port 8000
+.venv/bin/uvicorn app.main:app --reload --port 8088
 .venv/bin/python -m pytest
 ```
 

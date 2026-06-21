@@ -7,8 +7,9 @@ VENV := $(BACKEND_DIR)/.venv
 PY := $(VENV)/bin/python
 PIP := $(VENV)/bin/pip
 UVICORN := $(VENV)/bin/uvicorn
-BACKEND_PORT ?= 8000
+BACKEND_PORT ?= 8088
 FRONTEND_PORT ?= 5173
+BACKEND_URL ?= http://127.0.0.1:$(BACKEND_PORT)
 
 .DEFAULT_GOAL := help
 
@@ -32,8 +33,12 @@ ingest-sample-offline: ## Ingest the bundled fixtures only (no network)
 	cd $(BACKEND_DIR) && $(abspath $(PY)) -m scripts.ingest sample --no-api
 
 .PHONY: ingest-full
-ingest-full: ## Ingest the full corpus (slow; cached and resumable)
+ingest-full: ## Ingest the full corpus via pagination (~12k+ norms; cached/resumable)
 	cd $(BACKEND_DIR) && $(abspath $(PY)) -m scripts.ingest full
+
+.PHONY: ingest-missing
+ingest-missing: ## Ingest only norms not yet in the DB (after a capped 10k run)
+	cd $(BACKEND_DIR) && $(abspath $(PY)) -m scripts.ingest missing
 
 .PHONY: compute
 compute: ## Recompute briefings from the existing SQLite database
@@ -49,13 +54,13 @@ backend: ## Run the FastAPI backend (http://127.0.0.1:$(BACKEND_PORT))
 
 .PHONY: frontend
 frontend: ## Run the Vite dev server (http://127.0.0.1:$(FRONTEND_PORT))
-	cd $(FRONTEND_DIR) && npm run dev
+	cd $(FRONTEND_DIR) && BACKEND_URL=$(BACKEND_URL) npm run dev
 
 .PHONY: dev
 dev: ## Run backend and frontend together
 	@echo "Starting backend on :$(BACKEND_PORT) and frontend on :$(FRONTEND_PORT)…"
 	cd $(BACKEND_DIR) && $(abspath $(UVICORN)) app.main:app --host 127.0.0.1 --port $(BACKEND_PORT) & \
-	cd $(FRONTEND_DIR) && npm run dev; \
+	cd $(FRONTEND_DIR) && BACKEND_URL=$(BACKEND_URL) npm run dev; \
 	kill %1 2>/dev/null || true
 
 .PHONY: test
@@ -72,6 +77,8 @@ build-frontend: ## Production build of the frontend
 	cd $(FRONTEND_DIR) && npm run build
 
 .PHONY: clean
-clean: ## Remove generated DB and caches (keeps fixtures)
-	rm -f data/processed/*.db data/processed/*.sqlite data/processed/data_quality_report.json
+clean: ## Remove generated DB, WAL/SHM sidecars, and API cache
+	rm -f data/processed/*.db data/processed/*.db-wal data/processed/*.db-shm
+	rm -f data/processed/*.sqlite data/processed/*.sqlite3
+	rm -f data/processed/data_quality_report.json
 	rm -rf data/cache/boe/*

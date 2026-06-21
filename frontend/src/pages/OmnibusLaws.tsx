@@ -49,6 +49,7 @@ export default function OmnibusLaws() {
       {error && <ErrorView message={error} />}
       {data && (
         <>
+          <div className="section-title">Rankings — top 5 omnibus norms (most norms amended)</div>
           <SortableTable columns={columns} rows={data.items} initialSort="count" />
           <div className="section-title">Subgraph — outgoing amendments from the omnibus norms</div>
           <BriefingGraph briefingKey="omnibus-laws" scope="state" />

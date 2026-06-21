@@ -15,13 +15,20 @@ _engine: Optional[Engine] = None
 
 def _build_engine() -> Engine:
     ensure_directories()
-    engine = create_engine(get_database_url(), future=True)
+    # timeout: wait up to 30s if another process (e.g. uvicorn) has the DB locked.
+    engine = create_engine(
+        get_database_url(),
+        future=True,
+        connect_args={"timeout": 30},
+    )
 
     @event.listens_for(engine, "connect")
     def _set_sqlite_pragma(dbapi_connection, _connection_record):  # noqa: ANN001
         cursor = dbapi_connection.cursor()
         cursor.execute("PRAGMA foreign_keys=ON")
-        cursor.execute("PRAGMA journal_mode=WAL")
+        # DELETE journal: single-file DB, fewer WAL sidecar issues on WSL2 / interrupted runs.
+        cursor.execute("PRAGMA journal_mode=DELETE")
+        cursor.execute("PRAGMA busy_timeout=30000")
         cursor.close()
 
     return engine

@@ -29,8 +29,8 @@
   --radius-sm: 6px;
   --shadow-sm: 0 1px 2px rgba(20, 40, 30, 0.06);
   --shadow-md: 0 4px 16px rgba(20, 40, 30, 0.08);
-  --font-sans: "Inter", "Segoe UI", system-ui, -apple-system, sans-serif;
-  --font-serif: "Georgia", "Times New Roman", serif;
+  --font-sans: "Satoshi", system-ui, -apple-system, sans-serif;
+  --font-serif: "Satoshi", system-ui, -apple-system, sans-serif;
 }
 
 * {
@@ -338,19 +338,63 @@ table.data td.num {
   overflow: hidden;
   background: var(--color-surface);
 }
+.graph-viewport {
+  position: relative;
+  width: 100%;
+  background: linear-gradient(180deg, #fafcfa 0%, #ffffff 100%);
+}
 .graph-canvas {
   width: 100%;
-  height: 460px;
+  height: 100%;
+}
+.graph-toolbar {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  z-index: 5;
+  display: flex;
+  gap: 6px;
+}
+.graph-tool-btn {
+  min-width: 36px;
+  height: 32px;
+  padding: 0 10px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  background: rgba(255, 255, 255, 0.95);
+  color: var(--color-green-dark);
+  font-family: var(--font-sans);
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: var(--shadow-sm);
+}
+.graph-tool-btn:hover {
+  background: var(--color-green-soft);
+  border-color: #cfe3d6;
 }
 .legend {
   display: flex;
   flex-wrap: wrap;
-  gap: 14px;
-  padding: 10px 14px;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px 20px;
+  padding: 12px 16px;
   border-top: 1px solid var(--color-border);
   background: var(--color-surface-alt);
   font-size: 12.5px;
   color: var(--color-text-muted);
+}
+.legend-items {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+}
+.legend-note {
+  font-size: 12px;
+  color: var(--color-text-muted);
+  max-width: 420px;
+  text-align: right;
 }
 .legend .item {
   display: inline-flex;
@@ -362,10 +406,38 @@ table.data td.num {
   height: 12px;
   border-radius: 3px;
 }
+.legend .swatch.hub {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  border: 3px solid var(--color-green-dark);
+  background: var(--color-green-accent);
+}
 .legend .swatch.line {
   height: 3px;
   width: 18px;
   border-radius: 2px;
+}
+
+.table-pagination {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+  padding: 12px 4px 4px;
+  font-size: 13px;
+}
+.pagination-controls {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.pagination-page {
+  font-size: 13px;
+  color: var(--color-text-muted);
+  min-width: 7rem;
+  text-align: center;
 }
 
 /* States */

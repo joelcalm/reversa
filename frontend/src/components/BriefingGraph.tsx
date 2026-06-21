@@ -1,5 +1,6 @@
 import { api } from "../api/client";
 import GraphView, { GraphLegend } from "../graph/GraphView";
+import { graphLegendNote } from "../graph/graphLegendNote";
 import { useFetch } from "./useFetch";
 import { Empty, ErrorView, Loading } from "./States";
 
@@ -16,6 +17,8 @@ export default function BriefingGraph({ briefingKey, scope = "state", focusId, o
     scope,
   ]);
 
+  const legendNote = data ? graphLegendNote(briefingKey, data.meta) : undefined;
+
   return (
     <div className="graph-shell">
       {loading && <Loading message="Building subgraph…" />}
@@ -25,8 +28,14 @@ export default function BriefingGraph({ briefingKey, scope = "state", focusId, o
       )}
       {!loading && !error && data && data.nodes.length > 0 && (
         <>
-          <GraphView data={data} focusId={focusId} onNodeClick={onNodeClick} />
-          <GraphLegend />
+          <GraphView
+            data={data}
+            briefingKey={briefingKey}
+            focusId={focusId}
+            onNodeClick={onNodeClick}
+            height={560}
+          />
+          <GraphLegend note={legendNote} />
         </>
       )}
     </div>

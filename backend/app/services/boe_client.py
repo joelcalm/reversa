@@ -13,7 +13,7 @@ The BOE API wraps payloads as {"status": {...}, "data": ...}; we return the inne
 from __future__ import annotations
 
 import time
-from typing import Any, Optional
+from typing import Any, Iterator, List, Optional
 
 import httpx
 from tenacity import (
@@ -25,6 +25,7 @@ from tenacity import (
 
 from app.core.config import (
     BOE_API_BASE,
+    LIST_PAGE_SIZE,
     MAX_RETRIES,
     REQUEST_DELAY_SECONDS,
     REQUEST_TIMEOUT_SECONDS,
@@ -43,6 +44,18 @@ def _unwrap(payload: Any) -> Any:
     if isinstance(payload, dict) and "data" in payload and "status" in payload:
         return payload["data"]
     return payload
+
+
+def list_items(payload: Any) -> List[dict]:
+    """Normalize a list-endpoint payload to a list of norm dicts."""
+    if isinstance(payload, list):
+        return [x for x in payload if isinstance(x, dict)]
+    if isinstance(payload, dict):
+        for key in ("data", "items", "results"):
+            if isinstance(payload.get(key), list):
+                return [x for x in payload[key] if isinstance(x, dict)]
+        return [payload]
+    return []
 
 
 class BoeClient:
@@ -112,7 +125,11 @@ class BoeClient:
         date_from: Optional[str] = None,
         date_to: Optional[str] = None,
     ) -> Any:
-        """List consolidated norms. Use limit=-1 for the full list."""
+        """List one page of consolidated norms.
+
+        Note: ``limit=-1`` is capped at 10_000 by the BOE API. Use ``iter_all_list_items()``
+        to retrieve the full corpus (~12k+ norms).
+        """
         params: dict[str, Any] = {"offset": offset, "limit": limit}
         if query:
             params["query"] = query
@@ -122,6 +139,45 @@ class BoeClient:
             params["to"] = date_to
         cache_key = f"list_off{offset}_lim{limit}_{query or ''}_{date_from or ''}_{date_to or ''}"
         return self._cached_get(cache_key, "", params=params)
+
+    def iter_list_pages(
+        self,
+        page_size: int = LIST_PAGE_SIZE,
+        query: Optional[str] = None,
+        date_from: Optional[str] = None,
+        date_to: Optional[str] = None,
+    ) -> Iterator[List[dict]]:
+        """Yield successive pages until the API returns an empty or partial page."""
+        offset = 0
+        while True:
+            batch = list_items(
+                self.list_norms(
+                    offset=offset,
+                    limit=page_size,
+                    query=query,
+                    date_from=date_from,
+                    date_to=date_to,
+                )
+            )
+            if not batch:
+                break
+            yield batch
+            if len(batch) < page_size:
+                break
+            offset += len(batch)
+
+    def fetch_all_list_items(
+        self,
+        page_size: int = LIST_PAGE_SIZE,
+        query: Optional[str] = None,
+        date_from: Optional[str] = None,
+        date_to: Optional[str] = None,
+    ) -> List[dict]:
+        """Fetch every norm from the list endpoint via pagination."""
+        items: List[dict] = []
+        for page in self.iter_list_pages(page_size, query, date_from, date_to):
+            items.extend(page)
+        return items
 
     def get_metadata(self, norm_id: str) -> Any:
         return self._cached_get(f"{norm_id}/metadatos", f"/id/{norm_id}/metadatos")

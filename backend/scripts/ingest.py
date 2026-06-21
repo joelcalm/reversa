@@ -3,7 +3,8 @@
 Examples:
     python -m scripts.ingest sample            # fast sample (with fixture fallback)
     python -m scripts.ingest sample --no-api   # use bundled fixtures only
-    python -m scripts.ingest full              # full corpus (slow)
+    python -m scripts.ingest full              # full corpus via pagination (~12k+ norms)
+    python -m scripts.ingest missing           # only norms not yet in the DB
 """
 from __future__ import annotations
 
@@ -11,7 +12,8 @@ import json
 
 import typer
 
-from app.services.ingestion import ingest_full, ingest_sample
+from app.core.config import LIST_PAGE_SIZE
+from app.services.ingestion import ingest_full, ingest_missing, ingest_sample
 
 app = typer.Typer(add_completion=False, help="Ingest the BOE corpus into SQLite.")
 
@@ -27,9 +29,24 @@ def sample(
 
 
 @app.command()
-def full(limit: int = typer.Option(-1, help="List limit; -1 means the full corpus.")) -> None:
-    """Ingest the full corpus (can be slow; cached and resumable)."""
-    summary = ingest_full(limit=limit)
+def full(
+    page_size: int = typer.Option(LIST_PAGE_SIZE, help="List page size for pagination."),
+    resume: bool = typer.Option(
+        True,
+        help="Skip analisis fetch for norms already parsed in the DB.",
+    ),
+) -> None:
+    """Ingest the full corpus (paginated; limit=-1 alone caps at 10_000)."""
+    summary = ingest_full(page_size=page_size, resume=resume)
+    typer.echo(json.dumps(summary, ensure_ascii=False, indent=2))
+
+
+@app.command()
+def missing(
+    page_size: int = typer.Option(LIST_PAGE_SIZE, help="List page size for pagination."),
+) -> None:
+    """Ingest only norms missing from the DB (e.g. after a capped 10k full run)."""
+    summary = ingest_missing(page_size=page_size)
     typer.echo(json.dumps(summary, ensure_ascii=False, indent=2))
 
 

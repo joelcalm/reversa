@@ -84,7 +84,8 @@ export interface CyNode {
     rank?: string;
     url_html?: string;
     is_live?: boolean | null;
-    metrics?: Record<string, number>;
+    is_hub?: boolean;
+    metrics?: Record<string, number | boolean>;
   };
 }
 export interface CyEdge {
@@ -100,6 +101,13 @@ export interface CyEdge {
 export interface GraphData {
   nodes: CyNode[];
   edges: CyEdge[];
+  meta?: {
+    node_count?: number;
+    edge_count?: number;
+    truncated?: boolean;
+    max_edges_per_hub?: number;
+    total_edges_available?: number;
+  };
 }
 
 export interface NormList {

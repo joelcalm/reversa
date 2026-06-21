@@ -1,6 +1,6 @@
 # API Reference
 
-Base URL: `http://127.0.0.1:8000`. Interactive docs at `/docs` (Swagger) and `/redoc`.
+Base URL: `http://127.0.0.1:8088` (local dev default). Interactive docs at `/docs` (Swagger) and `/redoc`.
 
 All briefing endpoints accept `scope` (`state` default, or `all`). Unknown scope values default to
 `state`. Endpoints never crash on missing/inconsistent scope fields.

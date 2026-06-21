@@ -13,7 +13,7 @@ from __future__ import annotations
 
 import json
 from datetime import datetime, timezone
-from typing import Any, Dict, Optional, Sequence
+from typing import Any, Dict, List, Optional, Sequence
 
 from sqlalchemy import text
 
@@ -26,6 +26,9 @@ BRIEFING_KEYS = (
     "dead-law-dependencies",
     "ley-30-1992-blast-radius",
 )
+
+# Viz subgraphs: cap edges per hub so Cytoscape layouts stay readable (tables keep full data).
+GRAPH_VIZ_MAX_EDGES_PER_HUB = 30
 
 NORM_FIELDS = [
     "id",
@@ -46,6 +49,22 @@ NORM_FIELDS = [
     "url_eli",
     "url_html",
 ]
+
+
+def _limit_edges_per_hub(
+    rows: Sequence[Any],
+    hub_fn,
+    max_per_hub: int = GRAPH_VIZ_MAX_EDGES_PER_HUB,
+) -> List[Any]:
+    """Keep at most N edges per hub node so briefing graphs remain legible."""
+    buckets: Dict[str, List[Any]] = {}
+    for r in rows:
+        hub = hub_fn(r)
+        buckets.setdefault(hub, []).append(r)
+    out: List[Any] = []
+    for items in buckets.values():
+        out.extend(items[:max_per_hub])
+    return out
 
 
 def _now() -> str:
@@ -87,7 +106,15 @@ def _fetch_norms_map(conn, ids: Sequence[str]) -> Dict[str, Dict[str, Any]]:
     return {r._mapping["id"]: _norm_dict(r) for r in rows}
 
 
-def _node(norm: Optional[Dict[str, Any]], norm_id: str, metrics: Optional[dict] = None) -> dict:
+def _node(
+    norm: Optional[Dict[str, Any]],
+    norm_id: str,
+    metrics: Optional[dict] = None,
+    hub: bool = False,
+) -> dict:
+    base_metrics = metrics or {}
+    if hub:
+        base_metrics = {**base_metrics, "is_hub": True}
     if norm:
         data = {
             "id": norm["id"],
@@ -97,7 +124,8 @@ def _node(norm: Optional[Dict[str, Any]], norm_id: str, metrics: Optional[dict] 
             "rank": norm.get("rank"),
             "url_html": norm.get("url_html"),
             "is_live": norm.get("is_live"),
-            "metrics": metrics or {},
+            "is_hub": hub,
+            "metrics": base_metrics or {},
         }
     else:
         # Target/source not present in our DB (e.g. partial sample ingestion).
@@ -109,7 +137,8 @@ def _node(norm: Optional[Dict[str, Any]], norm_id: str, metrics: Optional[dict] 
             "rank": None,
             "url_html": None,
             "is_live": None,
-            "metrics": metrics or {},
+            "is_hub": hub,
+            "metrics": base_metrics or {},
         }
     return {"data": data}
 
@@ -298,16 +327,60 @@ def compute_blast_radius(conn, scope: str = DEFAULT_SCOPE) -> Dict[str, Any]:
 # --- Graph builders ---------------------------------------------------------
 
 
-def _build_graph(conn, edge_sql: str, params: Dict[str, Any]) -> Dict[str, Any]:
-    rows = conn.execute(text(edge_sql), params).fetchall()
-    node_ids = set()
+def _build_graph(
+    conn,
+    edge_sql: str,
+    params: Dict[str, Any],
+    *,
+    hub_ids: Optional[set] = None,
+    limit_hub_fn=None,
+    total_rows: Optional[int] = None,
+) -> Dict[str, Any]:
+    rows = list(conn.execute(text(edge_sql), params).fetchall())
+    raw_count = len(rows)
+    truncated = False
+    if limit_hub_fn is not None:
+        limited = _limit_edges_per_hub(rows, limit_hub_fn)
+        truncated = len(limited) < raw_count
+        rows = limited
+
+    in_deg: Dict[str, int] = {}
+    out_deg: Dict[str, int] = {}
+    node_ids: set = set()
     for r in rows:
-        node_ids.add(r._mapping["source_norm_id"])
-        node_ids.add(r._mapping["target_norm_id"])
+        s = r._mapping["source_norm_id"]
+        t = r._mapping["target_norm_id"]
+        node_ids.add(s)
+        node_ids.add(t)
+        out_deg[s] = out_deg.get(s, 0) + 1
+        in_deg[t] = in_deg.get(t, 0) + 1
+
+    hubs = hub_ids or set()
     norms_map = _fetch_norms_map(conn, list(node_ids))
-    nodes = [_node(norms_map.get(nid), nid) for nid in node_ids]
+    nodes = []
+    for nid in node_ids:
+        metrics = {
+            "in_degree": in_deg.get(nid, 0),
+            "out_degree": out_deg.get(nid, 0),
+        }
+        nodes.append(
+            _node(
+                norms_map.get(nid),
+                nid,
+                metrics=metrics,
+                hub=nid in hubs,
+            )
+        )
     edges = [_edge(r) for r in rows]
-    return {"nodes": nodes, "edges": edges}
+    meta: Dict[str, Any] = {
+        "node_count": len(nodes),
+        "edge_count": len(edges),
+        "truncated": truncated,
+    }
+    if truncated:
+        meta["max_edges_per_hub"] = GRAPH_VIZ_MAX_EDGES_PER_HUB
+        meta["total_edges_available"] = raw_count
+    return {"nodes": nodes, "edges": edges, "meta": meta}
 
 
 def graph_unreadable(conn, scope: str = DEFAULT_SCOPE, limit: int = 5) -> Dict[str, Any]:
@@ -322,7 +395,13 @@ def graph_unreadable(conn, scope: str = DEFAULT_SCOPE, limit: int = 5) -> Dict[s
         "relation_detail_raw FROM relations "
         f"WHERE relation_type='AMENDS' AND target_norm_id IN ({placeholders})"
     )
-    return _build_graph(conn, sql, params)
+    return _build_graph(
+        conn,
+        sql,
+        params,
+        hub_ids=set(ids),
+        limit_hub_fn=lambda r: r._mapping["target_norm_id"],
+    )
 
 
 def graph_omnibus(conn, scope: str = DEFAULT_SCOPE, limit: int = 5) -> Dict[str, Any]:
@@ -337,11 +416,19 @@ def graph_omnibus(conn, scope: str = DEFAULT_SCOPE, limit: int = 5) -> Dict[str,
         "relation_detail_raw FROM relations "
         f"WHERE relation_type='AMENDS' AND source_norm_id IN ({placeholders})"
     )
-    return _build_graph(conn, sql, params)
+    return _build_graph(
+        conn,
+        sql,
+        params,
+        hub_ids=set(ids),
+        limit_hub_fn=lambda r: r._mapping["source_norm_id"],
+    )
 
 
 def graph_dead_law(conn, scope: str = DEFAULT_SCOPE, limit: int = 5) -> Dict[str, Any]:
     sp = _scope_params(scope)
+    ghosts = compute_dead_law(conn, scope, limit)
+    ghost_ids = {g["id"] for g in ghosts.get("top_ghost_norms", [])}
     sql = (
         "SELECT r.id, r.source_norm_id, r.target_norm_id, r.relation_type, "
         "r.relation_label_raw, r.relation_detail_raw "
@@ -358,7 +445,13 @@ def graph_dead_law(conn, scope: str = DEFAULT_SCOPE, limit: int = 5) -> Dict[str
     )
     # The same named param (:scope_label) appears in both scope clauses; it binds once.
     params = {"limit": limit, **sp}
-    return _build_graph(conn, sql, params)
+    return _build_graph(
+        conn,
+        sql,
+        params,
+        hub_ids=ghost_ids,
+        limit_hub_fn=lambda r: r._mapping["target_norm_id"],
+    )
 
 
 def graph_blast_radius(conn, scope: str = DEFAULT_SCOPE) -> Dict[str, Any]:
@@ -371,7 +464,13 @@ def graph_blast_radius(conn, scope: str = DEFAULT_SCOPE) -> Dict[str, Any]:
         + _scope_clause("s", scope)
     )
     params = {"target": LEY_30_1992_ID, **sp}
-    return _build_graph(conn, sql, params)
+    return _build_graph(
+        conn,
+        sql,
+        params,
+        hub_ids={LEY_30_1992_ID},
+        limit_hub_fn=lambda r: r._mapping["target_norm_id"],
+    )
 
 
 GRAPH_BUILDERS = {

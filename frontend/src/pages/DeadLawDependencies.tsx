@@ -53,7 +53,9 @@ export default function DeadLawDependencies() {
             <KpiCard value={data.top_ghost_norms.length} label="Ghost norms ranked" />
           </div>
 
-          <div className="section-title">Top “ghost” norms — repealed norms most cited by live norms</div>
+          <div className="section-title">
+            Top ghost norms — repealed norms most cited by live norms (top 5)
+          </div>
           {data.top_ghost_norms.length > 0 ? (
             <SortableTable columns={columns} rows={data.top_ghost_norms} initialSort="citers" />
           ) : (

@@ -11,13 +11,14 @@ from __future__ import annotations
 import json
 from datetime import datetime, timezone
 from pathlib import Path
-from typing import Any, Dict, Iterable, List, Optional
+from typing import Any, Dict, Iterable, List, Optional, Set
 
-from sqlalchemy import func, insert, select
+from sqlalchemy import func, insert, select, text
 from sqlalchemy.dialects.sqlite import insert as sqlite_insert
 
 from app.core.config import (
     FIXTURES_DIR,
+    LIST_PAGE_SIZE,
     PROCESSED_DIR,
     SAMPLE_RECENT_COUNT,
     SAMPLE_SEED_IDS,
@@ -30,7 +31,8 @@ from app.models.tables import (
     relations,
     subjects,
 )
-from app.services.boe_client import BoeClient
+from app.services.boe_client import BoeClient, list_items
+from app.utils.cache import has_cache
 from app.services.parsers import (
     ParsedAnalysis,
     ParsedNorm,
@@ -181,6 +183,45 @@ def write_data_quality_report(report: Dict[str, Any]) -> Path:
     return path
 
 
+def _existing_norm_ids(conn) -> Set[str]:
+    rows = conn.execute(select(norms.c.id)).fetchall()
+    return {r[0] for r in rows}
+
+
+def _norm_analysis_done(conn, norm_id: str) -> bool:
+    """True if we already parsed this norm's analisis (or it was fetched with no edges)."""
+    rel = conn.execute(
+        text("SELECT 1 FROM relations WHERE current_norm_id = :id LIMIT 1"),
+        {"id": norm_id},
+    ).fetchone()
+    if rel:
+        return True
+    subj = conn.execute(
+        text("SELECT 1 FROM norm_subjects WHERE norm_id = :id LIMIT 1"),
+        {"id": norm_id},
+    ).fetchone()
+    if subj:
+        return True
+    # Analisis cached but produced no relations/subjects — don't re-fetch on resume.
+    return has_cache(f"{norm_id}/analisis")
+
+
+def _ingest_analysis_for_norm(client: BoeClient, conn, norm_id: str) -> int:
+    try:
+        analysis_payload = client.get_analysis(norm_id)
+    except Exception:  # noqa: BLE001
+        return 0
+    analysis = parse_analysis(norm_id, analysis_payload)
+    rel_count = _insert_relations(conn, analysis.relations)
+    _insert_subjects(conn, analysis, norm_id)
+    return rel_count
+
+
+def _fetch_all_list_items(client: BoeClient, page_size: int = LIST_PAGE_SIZE) -> List[dict]:
+    """Paginate the list endpoint (limit=-1 is API-capped at 10_000)."""
+    return client.fetch_all_list_items(page_size=page_size)
+
+
 def _persist_norm_with_analysis(
     conn, norm: ParsedNorm, analysis: Optional[ParsedAnalysis]
 ) -> int:
@@ -253,7 +294,7 @@ def _ingest_sample_via_api(
     seed_ids: List[str] = list(SAMPLE_SEED_IDS)
     with BoeClient() as client:
         listing = client.list_norms(offset=0, limit=max(recent_count, 1))
-        for item in _as_list(listing):
+        for item in list_items(listing):
             norm_id = item.get("identificador") if isinstance(item, dict) else None
             if norm_id and norm_id not in seed_ids:
                 seed_ids.append(norm_id)
@@ -300,36 +341,96 @@ def _ingest_sample_via_api(
     }
 
 
-def ingest_full(limit: int = -1) -> Dict[str, Any]:
-    """Ingest the full corpus: list with limit=-1, then per-norm analysis."""
+def ingest_full(
+    page_size: int = LIST_PAGE_SIZE,
+    resume: bool = True,
+) -> Dict[str, Any]:
+    """Ingest the full corpus via paginated list + per-norm analysis.
+
+    The BOE API caps ``limit=-1`` at 10_000 items; we paginate to fetch all ~12k+ norms.
+    With ``resume=True`` (default), norms whose analisis is already in the DB are skipped.
+    """
     init_db()
-    summary: Dict[str, Any] = {"mode": "full"}
+    summary: Dict[str, Any] = {"mode": "full", "resume": resume, "page_size": page_size}
     ingested = 0
     rel_total = 0
+    rel_skipped = 0
+    list_total = 0
+
     with BoeClient() as client:
-        listing = client.list_norms(offset=0, limit=limit)
-        items = _as_list(listing)
-        # First pass: persist all metadata from the list (fast, single call).
+        items = _fetch_all_list_items(client, page_size=page_size)
+        list_total = len(items)
+        summary["list_total"] = list_total
+
+        # Pass 1: metadata from list pages (upsert — idempotent).
         with session_scope() as conn:
             for item in items:
                 norm = parse_metadata(item)
                 if norm:
                     _upsert_norm(conn, norm)
                     ingested += 1
-        # Second pass: fetch analysis per norm (cached/resumable).
+
+        # Pass 2: analisis per norm (cached/resumable; skip if already parsed).
         for item in items:
             norm_id = item.get("identificador") if isinstance(item, dict) else None
             if not norm_id:
                 continue
-            try:
-                analysis_payload = client.get_analysis(norm_id)
-            except Exception:  # noqa: BLE001 - skip a norm that fails, keep going
-                continue
-            analysis = parse_analysis(norm_id, analysis_payload)
             with session_scope() as conn:
-                rel_total += _insert_relations(conn, analysis.relations)
-                _insert_subjects(conn, analysis, norm_id)
-    summary.update({"source": "api", "norms": ingested, "relations": rel_total})
+                if resume and _norm_analysis_done(conn, norm_id):
+                    rel_skipped += 1
+                    continue
+                rel_total += _ingest_analysis_for_norm(client, conn, norm_id)
+
+    summary.update(
+        {
+            "source": "api",
+            "norms": ingested,
+            "relations": rel_total,
+            "analysis_skipped": rel_skipped,
+        }
+    )
+    _finalize(summary)
+    return summary
+
+
+def ingest_missing(page_size: int = LIST_PAGE_SIZE) -> Dict[str, Any]:
+    """Ingest only norms present in the API list but missing from the DB.
+
+    Use after a capped ``limit=-1`` run to add the remaining ~2k norms without re-fetching
+    analisis for the 10_000 already ingested.
+    """
+    init_db()
+    summary: Dict[str, Any] = {"mode": "missing", "page_size": page_size}
+    added = 0
+    rel_total = 0
+
+    with BoeClient() as client:
+        items = _fetch_all_list_items(client, page_size=page_size)
+        summary["list_total"] = len(items)
+
+        with session_scope() as conn:
+            existing = _existing_norm_ids(conn)
+
+        missing_items = [
+            item
+            for item in items
+            if isinstance(item, dict)
+            and item.get("identificador")
+            and item["identificador"] not in existing
+        ]
+        summary["missing_count"] = len(missing_items)
+
+        for item in missing_items:
+            norm_id = item["identificador"]
+            norm = parse_metadata(item)
+            if not norm:
+                continue
+            with session_scope() as conn:
+                _upsert_norm(conn, norm)
+                rel_total += _ingest_analysis_for_norm(client, conn, norm_id)
+                added += 1
+
+    summary.update({"source": "api", "norms_added": added, "relations": rel_total})
     _finalize(summary)
     return summary
 
@@ -357,15 +458,3 @@ def _finalize(summary: Dict[str, Any]) -> None:
     path = write_data_quality_report(report)
     summary["data_quality_report"] = str(path)
     summary["relation_counts_by_type"] = report["relation_counts_by_type"]
-
-
-def _as_list(payload: Any) -> List[dict]:
-    if isinstance(payload, list):
-        return [x for x in payload if isinstance(x, dict)]
-    if isinstance(payload, dict):
-        # Some list responses may nest items under a key.
-        for key in ("data", "items", "results"):
-            if isinstance(payload.get(key), list):
-                return [x for x in payload[key] if isinstance(x, dict)]
-        return [payload]
-    return []

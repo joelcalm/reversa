@@ -119,7 +119,7 @@ export default function GraphExplorer() {
           )}
           {!loading && graph && graph.nodes.length > 0 && (
             <>
-              <GraphView data={graph} focusId={selectedId ?? undefined} onNodeClick={openNorm} />
+              <GraphView data={graph} focusId={selectedId ?? undefined} layoutMode="explorer" onNodeClick={openNorm} height={520} />
               <GraphLegend />
             </>
           )}

@@ -12,7 +12,7 @@ npm run build    # type-check + production build to dist/
 npm run lint     # tsc --noEmit
 ```
 
-The dev server proxies `/api` and `/health` to `http://127.0.0.1:8000`. Override the target:
+The dev server proxies `/api` and `/health` to `http://127.0.0.1:8088` by default. Override the target:
 
 ```bash
 BACKEND_URL=http://127.0.0.1:8090 FRONTEND_PORT=5180 npm run dev

@@ -57,6 +57,9 @@ SAMPLE_SEED_IDS = [
 ]
 SAMPLE_RECENT_COUNT = int(os.environ.get("BOE_SAMPLE_RECENT", "40"))
 
+# List endpoint: limit=-1 is capped at 10_000 by the BOE API; paginate instead.
+LIST_PAGE_SIZE = int(os.environ.get("BOE_LIST_PAGE_SIZE", "500"))
+
 
 def ensure_directories() -> None:
     for d in (CACHE_DIR, PROCESSED_DIR, SAMPLES_DIR):

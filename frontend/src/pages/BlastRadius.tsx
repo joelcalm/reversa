@@ -102,8 +102,13 @@ export default function BlastRadius() {
             </button>
           </div>
 
+          <div className="section-title">
+            Full worklist — live norms citing Ley 30/1992 ({filtered.length} total
+            {filter.trim() ? " matching filter" : ""})
+          </div>
+
           {filtered.length > 0 ? (
-            <SortableTable columns={columns} rows={filtered} initialSort="pub" />
+            <SortableTable columns={columns} rows={filtered} initialSort="pub" pageSize={20} />
           ) : (
             <div className="card card-pad muted">No live norms match the current filter / scope.</div>
           )}

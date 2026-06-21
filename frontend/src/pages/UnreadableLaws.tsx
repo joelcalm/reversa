@@ -16,7 +16,7 @@ const columns: Column<UnreadableItem>[] = [
   { key: "status", label: "Status", render: (r) => <StatusPill status={r.lifecycle_status} />, sortValue: (r) => r.lifecycle_status ?? "" },
   {
     key: "count",
-    label: "Amending norms",
+    label: "Distinct amending norms",
     numeric: true,
     render: (r) => r.amending_count,
     sortValue: (r) => r.amending_count,
@@ -34,13 +34,15 @@ export default function UnreadableLaws() {
       </div>
       <p className="explanation">
         Norms amended many times become hard to understand and maintain. This ranks norms by the
-        number of <strong>distinct other norms that amend them</strong> (incoming AMENDS edges).
+        number of <strong>distinct other norms that amend them</strong> (one count per amending
+        norm, even if it amended the same target several times).
       </p>
 
       {loading && <Loading />}
       {error && <ErrorView message={error} />}
       {data && (
         <>
+          <div className="section-title">Rankings — top 5 norms most amended by others</div>
           <SortableTable columns={columns} rows={data.items} initialSort="count" />
           <div className="section-title">Subgraph — incoming amendments to the top norms</div>
           <BriefingGraph briefingKey="unreadable-laws" scope="state" />

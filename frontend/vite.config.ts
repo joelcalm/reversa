@@ -3,7 +3,7 @@ import react from "@vitejs/plugin-react";
 
 // During development, /api and /health are proxied to the FastAPI backend so the
 // frontend can use same-origin relative URLs. Override the target with BACKEND_URL.
-const backend = process.env.BACKEND_URL || "http://127.0.0.1:8000";
+const backend = process.env.BACKEND_URL || "http://127.0.0.1:8088";
 
 export default defineConfig({
   plugins: [react()],

@@ -46,7 +46,7 @@ Prerequisites: Python 3.9+ (with [`uv`](https://github.com/astral-sh/uv) recomme
 make setup          # create backend venv + install deps, install frontend deps
 make ingest-sample  # ingest a small demo set from the live API (fixture fallback)
 make compute        # compute the four briefings into SQLite
-make backend        # serve the API at http://127.0.0.1:8000
+make backend        # serve the API at http://127.0.0.1:8088
 ```
 
 In another terminal:
@@ -57,9 +57,9 @@ make frontend       # serve the UI at http://127.0.0.1:5173
 
 Or run both together with `make dev`. Then open <http://127.0.0.1:5173>.
 
-> **Port note:** the frontend dev server proxies `/api` to `http://127.0.0.1:8000`. If the backend
-> runs elsewhere, set `BACKEND_URL`, e.g. `BACKEND_URL=http://127.0.0.1:8090 make frontend`, and run
-> the backend with `make backend BACKEND_PORT=8090`.
+> **Port:** the backend defaults to **8088** (not 8000) so it won't clash with other local
+> containers (e.g. Docker services on `:8000`). Override with `make backend BACKEND_PORT=9000` and
+> `BACKEND_URL=http://127.0.0.1:9000 make frontend` if needed.
 
 ### Without `make`
 
@@ -69,7 +69,7 @@ cd backend
 uv venv .venv --python 3.9 && uv pip install --python .venv/bin/python -e ".[dev]"
 .venv/bin/python -m scripts.ingest sample
 .venv/bin/python -m scripts.compute_briefings --scope state
-.venv/bin/uvicorn app.main:app --reload --port 8000
+.venv/bin/uvicorn app.main:app --reload --host 127.0.0.1 --port 8088
 
 # Frontend (new terminal)
 cd frontend && npm install && npm run dev
@@ -89,8 +89,29 @@ make ingest-sample-offline   # python -m scripts.ingest sample --no-api
 | Command | What it does |
 | --- | --- |
 | `make ingest-sample` | Seed norms (incl. Ley 30/1992, Leyes 39/2015 & 40/2015) + recent norms + one hop of neighbours. Fast, demo-ready, fixture fallback. |
-| `make ingest-full` | Full corpus via the list endpoint (`limit=-1`) + per-norm analysis. Cached and resumable. Slow. |
+| `make ingest-full` | Full corpus via **paginated** list endpoint (~12,317 norms) + per-norm analysis. Cached and resumable (`resume=True` skips already-parsed analisis). |
+| `make ingest-missing` | Only norms in the API list but **not yet in the DB** — use after a capped 10k run to add the rest without re-fetching analisis for existing norms. |
 | `make compute` | Recompute briefings from the existing SQLite (no API calls). |
+
+### Do I need to delete the DB or cache before full ingestion?
+
+**No.** Full ingestion is designed to **add to and refresh** what you already have:
+
+- **Cache (`data/cache/boe/`)** — kept. Already-fetched API responses are reused, so re-runs are fast and polite to the BOE API. Delete only if you want to force a full re-download.
+- **SQLite (`data/processed/boe_graph.db`)** — kept. Norms are **upserted** (updated if they already exist). New relations are **inserted**; duplicates are skipped via a unique constraint. Your sample data stays; full ingestion layers the rest of the corpus on top.
+- **Briefings** — run `make compute` after full ingestion to refresh cached briefing results.
+
+For a **completely fresh** database (e.g. sample-only experiment you want to discard):
+
+```bash
+make clean          # removes DB + API cache
+make ingest-full
+make compute
+```
+
+**Before `make ingest-full`:** stop the backend (`make backend` / `uvicorn`) so nothing else is
+writing to the SQLite file. If you see `disk I/O error`, the DB may be corrupted — run `make clean`
+and re-ingest (your API cache is kept unless you also delete `data/cache/boe/`).
 
 Raw API responses are cached under `data/cache/boe/`, so re-running ingestion is fast and resumable
 and never hammers the API. The SQLite database is written to `data/processed/boe_graph.db` and a
@@ -121,7 +142,7 @@ Default scope is **state-level** norms (ámbito "Estatal"); an `all` scope is al
 
 ## API
 
-See [`docs/api.md`](docs/api.md). Interactive docs are available at `/docs` when the backend runs.
+See [`docs/api.md`](docs/api.md). Interactive docs are available at `/docs` when the backend runs (default `http://127.0.0.1:8088/docs`).
 
 ## Limitations
 
